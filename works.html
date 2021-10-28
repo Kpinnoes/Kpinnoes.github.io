@@ -21,52 +21,103 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
+    
         html {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
-
+    
         body {
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
         }
+    
+    /*RESPONSIVE NAVBAR MENU STARTS*/
+    /* CHECKBOX HACK */
+    input[type=checkbox]{
+     display: none;
+    } 
+    /*HAMBURGER MENU*/
+    .hamburger {
+     display: none;
+     font-size: 24px;
+     user-select: none;
+    }
+    /* APPLYING MEDIA QUERIES */
+    @media (max-width: 768px) {
+    .menu{ 
+     display:none;
+     background-color:rgb(17, 21, 56);
+     text-align: left;
+     padding: 16px 0;
+     border: 2;
+    
+    }
+    .menu li:hover {
+     display: inline-block;
+     background-color:#0c0c0c;
+     transition: 0.3s ease;
+    }
+    .menu li + li {
+     margin-top: 12px;
+    }
+    input[type=checkbox]:checked ~ .menu{
+     display: block;
+    }
+    .hamburger {
+     display: block;
+    }
+    .dropdown {
+     left: 50%;
+     top: 30px;
+     transform: translateX(35%);
+    }
+    .dropdown li:hover {
+     background-color: #4c9e9e;
+    }
+    }
+      </style>
 
-        .hoverProject:hover {
+<body class="leading-normal overflow-x-hidden tracking-normal text-white m-6 bg-cover bg-scroll"
+  style="background-image: url('/images/bg.jpg');">
+  <div class="h-full relative pl-8 pr-4">
+    <!--Nav-->
+    <div  class=" w-full container mx-auto">
+      <div  class="  w-full flex items-center justify-between  text-white">
+        <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+          <img class=" w-20" src="images/khorapin.png" />
+          Khora
+          <span
 
-            opacity: 0.5;
+            class="bg-clip-text text-transparent bg-gradient-to-b from-purple-400 via-blue-400 to-green-300">pin</span>
+        </a>
+        <input type="checkbox" id="checkbox_toggle" />
+        <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+    
 
-        }
-    </style>
-
-<body class="leading-normal tracking-normal text-white m-6 bg-cover bg-scroll"
-    style="background-image: url('/images/bg.jpg');">
-    <div class="h-full">
-        <!--Nav-->
-        <div class="w-full container mx-auto">
-
-            <div class="w-full flex items-center justify-between  text-white">
-                <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
-                    href="index.html">
-                    <img class=" w-20" src="images/khorapin.png" />
-                    Khora<span
-                        class="bg-clip-text text-transparent bg-gradient-to-b from-purple-400 via-blue-400 to-green-300">pin</span>
-                </a>
-                <div class="flex w-1/2 justify-end content-center mr-20 text-white text-xl font-light">
-                    <a class="inline-block  ml-14 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-                        href="index.html#aboutme">
-                        About
-                    </a>
-                    <a class="inline-block  ml-14 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-                        href="works.html">
-                        Works
-                    </a>
-                    <a class="inline-block ml-14 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-                    href="resume.html">
-                        Resume
-                    </a>
-                </div>
-            </div>
+        <div  class="menu absolute -right-4  md:right-24 justify-center 
+        z-10 -mb-64 -mr-8 flex w-1/2 md:justify-end md:content-center mr-20 
+        text-white text-xl font-normal md:-mt-24 md:-ml-9">
+         
+          <a class="active block md:inline-block md:ml-14 md:-mt-28 mx-auto md:mx-0 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+          href="index.html" >
+         Home
+        </a>
+          <a class="block  mx-auto md:mx-0 md:ml-14 md:-mt-28 md:inline-block no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+            href="index.html#aboutme">
+            About
+          </a>
+          <a class="block  mx-auto md:mx-0  md:ml-14 md:-mt-28 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+            href="works.html">
+            Works
+          </a>
+          <a class="block mx-auto md:mx-0 md:ml-14 md:-mt-28 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+            href="resume.html">
+            Resume
+          </a>
+     
         </div>
+      </div>
+    </div>
     </div>
     <!--Work-->
 
@@ -77,7 +128,7 @@
          <a id="fourRegions">   <div class="my-auto grid grid-cols-2 gap-6 m-6 mx-auto  w-11/12 animate__animated animate__slideInUp  
                 focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
                 <div class=" ">
-                    <img class=" my-8 mx-auto py-auto w-48" src="images/Group 62494.png" alt="photo">
+                    <img class=" my-8 mx-auto py-auto h-full" src="images/Group 62494.png" alt="photo">
                 </div>
                <div class="text-left justify-left my-12 w-full">
                     <p class="font-semibold text-xl ">Four regions tourist place</p>
@@ -89,12 +140,12 @@
             </div></a>
 
             <div class="w-full flex ">
-                <img class="w-full md:w-11/12 " src="images/Group 62506.png" />
+                <img class="w-full md:h-full " src="images/Group 62506.png" />
             </div>
             <a id="mongkoltorn">  <div class="flex grid grid-cols-2 gap-6 m-6 mx-auto  w-11/12 animate__animated animate__slideInUp  
               focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
               <div class=" my-auto flex">
-                    <img class=" my-8 mx-auto py-auto w-36" src="images/image 420.png" alt="photo">
+                    <img class=" my-8 mx-auto py-auto h-full" src="images/image 420.png" alt="photo">
                 </div>
                 <div class="text-left justify-left my-12 w-full my-auto">
                     <p class="font-semibold text-xl ">Mongkoltorn(clothes shop)</p>
@@ -104,12 +155,12 @@
                 </div>
                
             </div>  </a>
-            <div class="my-8"><img class="h-full" src="images/Group 62507.png"/></div>
+            <div class="my-8"><img class="h-full w-full" src="images/Group 62507.png"/></div>
           
             <a id="happyDiary">  <div class="flex grid grid-cols-2 gap-6 m-6 -mb-4 mx-auto  w-11/12 animate__animated animate__slideInUp  
               focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
               <div class=" my-auto flex">
-                    <img class=" my-8 mx-auto py-auto w-36" src="images/Group.png" alt="photo">
+                    <img class=" my-8 mx-auto py-auto h-full" src="images/Group.png" alt="photo">
                 </div>
                 <div class="text-left justify-left my-12 w-full my-auto">
                     <p class="font-semibold text-xl ">Happy Diary</p>
@@ -126,7 +177,7 @@
          <a id="coolCream">    <div class="flex grid grid-cols-2 gap-6 m-6 -mb-4 mx-auto  w-11/12 animate__animated animate__slideInUp  
          focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
          <div class=" my-auto flex">
-               <img class=" my-8 mx-auto py-auto " src="images/CoolCream 2.png" alt="photo">
+               <img class=" my-8 mx-auto py-auto w-full h-full" src="images/CoolCream 2.png" alt="photo">
            </div>
            <div class="text-left justify-left my-12 w-full my-auto">
                <p class="font-semibold text-xl ">CoolCream</p>
@@ -137,31 +188,31 @@
           
        </div> </a>
         <div class="my-8"></div>
-       <div class="m-4"><img src="/images/Group 62510.png"/></div>
-    <div class="m-4"> <img src="/images/Group 62511.png"/></div>
+       <div class="m-4"><img class="w-full" src="/images/Group 62510.png"/></div>
+    <div class="m-4"> <img class=" w-full " src="/images/Group 62511.png"/></div>
     <!--Mathrunner-->
     <a id="mathRunner">   <div class=" flex  mx-auto justify-center  m-6 -mb-4 mx-auto  w-11/12 animate__animated animate__slideInUp  
          focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
          <div class=" my-auto flex">
-               <img class=" my-8 mx-auto py-auto " src="images/Group 62495.png" alt="photo">
+               <img class=" h-full w-full my-8 mx-auto py-auto " src="images/Group 62495.png" alt="photo">
            </div>
-           <div class="text-left justify-left my-12 w-full my-auto">
+           <div class="text-left justify-left my-12  my-auto">
                <p class="font-semibold text-xl ">MathRunner</p>
                <p class="text-gray-300 mt-4">create game by Unity. </p>
                <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
 
            </div>
           
-       </div> </a> <div class="my-8"></div>
-       <div class="m-4 flex w-11/12 "><img src="/images/Group 62512.png"/></div>
-      
+       </div>  <div class="my-8"></div>
+       <div class="m-4 flex w-full "><img class="w-full h-full" src="/images/Group 62512.png"/></div>
+    </a>
       <!--Prison-->
-      <a id="prisonSystem">  
-          <div>
- <div class=" flex mt-24 md:mt-48 mx-auto justify-center  m-6 -mb-4 mx-auto  w-11/12 animate__animated animate__slideInUp  
+    
+          <div>  <a id="prisonSystem">  
+ <div class=" flex  mx-auto justify-center mt-14 m-6 -mb-4 mx-auto  w-11/12 animate__animated animate__slideInUp  
         focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
-        <div class=" my-auto flex">
-              <img class=" my-8 mx-auto py-auto " src="images/Group 62478 2.png" alt="photo">
+        <div class=" my-auto flex md:ml-48 ">
+              <img class=" my-8 mx-auto py-auto h-full w-full " src="images/Group 62478 2.png" alt="photo">
           </div>
           <div class="text-left justify-left ml-8 my-12 w-full my-auto">
               <p class="font-semibold text-xl ">Prison System</p>
@@ -170,9 +221,9 @@
 
           </div>
          
-      </div> </a> <div class="my-8"></div></div>
-      <div class="m-4 flex w-full mx-auto justify-left md:mt-28 "><img src="/images/prison.png"/></div>
-     
+      </div> </a> <div class="my-8"><div class="m-4 flex w-full mx-auto justify-left md:mt-28 "><img class="h-full  w-full md:ml-24 md:w-10/12  flex " src="/images/prison.png"/></div>
+    </div></div>
+      
       
       
      
@@ -185,18 +236,18 @@
                 <a id="helloWorld">  <div class=" flex  mx-auto justify-center  m-6 -mb-4 mx-auto  w-11/12 animate__animated animate__slideInUp  
         focus:ring transform transition hover:scale-105 duration-300 ease-in-out   ">
         <div class=" my-auto flex">
-              <img class=" my-8 mx-auto py-auto " src="images/Group 62495.png" alt="photo">
+              <img class=" my-8 mx-auto py-auto h-full w-full" src="images/Mask Group.png" alt="photo">
           </div>
-          <div class="text-left justify-left my-12 w-full my-auto">
+          <div class="text-left justify-left my-12 md:ml-8 w-full my-auto">
               <p class="font-semibold text-xl ">HelloWorld Dolphin</p>
               <p class="text-gray-300 mt-4">Created website, promoted poster and took care the UX/UI group participants.   </p>
               <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
 
           </div>
          
-      </div> </a> <div class="my-8"></div>
-      <div class="m-4 flex w-11/12 "><img src="/images/Group 62513.png"/></div>
-      <div class="m-4 flex w-11/12 "><img src="/images/Group 62514.png"/></div>
+      </div> </a> <div class="mt-8"></div>
+      <div class=" h-full md:h-full"><img src="/images/Group 62513.png"/></div>
+      <div class="  h-full md:h-full "><img src="/images/Group 62514.png"/></div>
       </div>
       <!--Wipcamp-->
       <div class="grid md:grid-cols-2 mt-8">
@@ -230,16 +281,16 @@
 
           </div>
          
-      </div> </a> <div class="my-8"></div>
-      <div class="m-4 flex w-11/12 "><img src="/images/Group 62517.png"/></div>
-      <div class="m-4 flex w-11/12 "><img src="/images/Group 62518.png"/></div>
+      </div> </a> <div class="mb-8"></div>
+      <div class="m-4  h-full "><img src="/images/Group 62517.png"/></div>
+      <div class="m-4  h-full "><img src="/images/Group 62518.png"/></div>
       </div>
      
     </div>
      <!--Business-->
      <!-- <div class="mt-24 mb-12">
             <img class="w-8/12 my-8 mb-12 mx-auto"-->
-     <div class="mt-24 mb-12">
+     <div class="mt-24 mb-24 ">
         <img class="md:w-8/12 my-8 mb-12 mx-auto" src="images/BUSINESS.png" />
         <p class="text-5xl text-bold"> 🖥 Business</p>
         <div class="grid md:grid-cols-2 mt-8">
@@ -255,9 +306,9 @@
 
       </div>
      
-  </div> </a> <div class="my-8"></div>
-  <div class="m-4 flex md:h-96 "><img src="/images/Group 62519.png"/></div>
-  <div class="m-4 flex w-11/12 mx-4"><img src="/images/Group 62520.png"/></div>
+  </div> </a> <div class="flex my-16 "></div>
+  <div class="  md:h-full mt-14  md:w-full"><img src="/images/Group 62519.png"/></div>
+  <div class=" m-4 ml-2 mt-14 md:h-full w-full "><img src="/images/Group 62520.png"/></div>
   </div>
   <!--Sukapiban-->
   <div class="w-full mt-8">
@@ -284,7 +335,7 @@
 
          
        
-    <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+    <div class="w-full flex  pt-16 pb-6 text-sm text-center md:text-left fade-in">
       <a class="text-gray-400 no-underline hover:no-underline" href="#">&copy; Website 2021</a>
     Khorapin Portfolio
       <a class="text-gray-400 no-underline hover:no-underline"

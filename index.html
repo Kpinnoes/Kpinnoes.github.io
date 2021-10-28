@@ -14,7 +14,7 @@
     href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
     rel="stylesheet">
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!--Replace with your tailwind.css once created-->
   <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
@@ -31,60 +31,115 @@
       background-attachment: fixed;
     }
 
-    .hoverProject:hover {
+/*RESPONSIVE NAVBAR MENU STARTS*/
+/* CHECKBOX HACK */
+input[type=checkbox]{
+ display: none;
+} 
+/*HAMBURGER MENU*/
+.hamburger {
+ display: none;
+ font-size: 24px;
+ user-select: none;
+}
+/* APPLYING MEDIA QUERIES */
+@media (max-width: 768px) {
+.menu{ 
+ display:none;
+ background-color:rgb(17, 21, 56);
+ text-align: left;
+ padding: 16px 0;
+ border: 2;
 
-      opacity: 0.5;
-
-    }
+}
+.menu li:hover {
+ display: inline-block;
+ background-color:#0c0c0c;
+ transition: 0.3s ease;
+}
+.menu li + li {
+ margin-top: 12px;
+}
+input[type=checkbox]:checked ~ .menu{
+ display: block;
+}
+.hamburger {
+ display: block;
+}
+.dropdown {
+ left: 50%;
+ top: 30px;
+ transform: translateX(35%);
+}
+.dropdown li:hover {
+ background-color: #4c9e9e;
+}
+}
   </style>
 </head>
 
-<body class="leading-normal tracking-normal text-white m-6 bg-cover bg-scroll"
+<body class="leading-normal overflow-x-hidden tracking-normal text-white m-6 bg-cover bg-scroll"
   style="background-image: url('/images/bg.jpg');">
-  <div class="h-full">
+  <div class="h-full relative pl-8 pr-4">
     <!--Nav-->
-    <div class="w-full container mx-auto">
-      <div class="w-full flex items-center justify-between  text-white">
+    <div  class=" w-full container mx-auto">
+      <div  class="  w-full flex items-center justify-between  text-white">
         <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
           <img class=" w-20" src="images/khorapin.png" />
-          Khora<span
+          Khora
+          <span
+
             class="bg-clip-text text-transparent bg-gradient-to-b from-purple-400 via-blue-400 to-green-300">pin</span>
         </a>
-        <div class="flex w-1/2 justify-end content-center mr-20 text-white text-xl font-light">
-          <a class="inline-block  ml-14 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+        <input type="checkbox" id="checkbox_toggle" />
+        <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+    
+
+        <div  class="menu absolute -right-4  md:right-24 justify-center 
+        z-10 -mb-64 -mr-8 flex w-1/2 md:justify-end md:content-center mr-20 
+        text-white text-xl font-normal md:-mt-24 md:-ml-9">
+         
+          <a class="active block md:inline-block md:ml-14 md:-mt-28 mx-auto md:mx-0 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+          href="index.html" >
+         Home
+        </a>
+          <a class="block  mx-auto md:mx-0 md:ml-14 md:-mt-28 md:inline-block no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
             href="#aboutme">
             About
           </a>
-          <a class="inline-block  ml-14 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+          <a class="block  mx-auto md:mx-0  md:ml-14 md:-mt-28 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
             href="works.html">
             Works
           </a>
-          <a class="inline-block ml-14 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+          <a class="block mx-auto md:mx-0 md:ml-14 md:-mt-28 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
             href="resume.html">
             Resume
           </a>
+     
         </div>
       </div>
     </div>
-
+   
     <!--Main-->
-    <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap sm:mt-36 flex-col md:flex-row items-center ">
+    <div class=" h-320 mx-auto flex flex-wrap sm:mt-36 flex-col md:flex-row items-center ">
       <!--Left Col-->
+      <div class="flex h-full md:flex-row flex-col-reverse items-center ">
       <div
-        class="animate__animated animate__fadeInUp flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+        class="lg:mt-48 flex-shrink-0 lg:justify-center  lg:mx-auto lg:ml-8 animate__animated animate__fadeInUp
+         flex flex-col  w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
         <h1
-          class="my-4 text-3xl mt-48 md:mt-12 md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
+          class="my-4 text-3xl md:mt-12 md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
           👋 Hello, I'm
           <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-200 via-blue-500 to-purple-500">
             Khorapin
           </span>
 
         </h1>
-        <p class="leading-normal text-lg  ml-2 md:text-xl mb-2 mt-4 text-gray-300  text-center md:text-left">
-          Information Technology student who are trying to be <span class="underline">UX/UI Designer </span>. </p>
-        <p class="text-gray-400 mb-8"> <span class="material-icons-outlined">
-            location_on
-          </span><em class="mb-2"> Banchang, Rayong</em></p>
+        <p class="flex-shrink-0 leading-normal text-lg  ml-2 md:text-xl mb-2 mt-4 text-gray-300  text-center md:text-left">
+          Information Technology student who are trying to be <br><span class=" underline">UX/UI Designer </span>. </p>
+        <p class="text-gray-400 mb-8"> 
+
+          </span><em class="mb-2 flex justify-center mx-auto"> <span class=" material-icons-outlined">location_on</span>Banchang, Rayong</em></p>
 
         <a class="mt-24" id="aboutme">
           <div>
@@ -95,18 +150,19 @@
 
 
       <!--Right Col-->
-      <div class="w-full xl:w-3/5 p-12  overflow-hidden ">
 
-        <img alt="" class="animate__animated animate__fadeInRight mx-auto absolute flex top-32 w-full  md:w-8/12 "
-          src="/images/coding.png" />
 
-      </div>
+        <img alt="" class=" overflow-hidden  animate__animated animate__fadeInRight mx-auto 
+         flex md:-mr-96 "
+          src="/images/coding.png" height="2000px" weight="1500px" />
 
+     
+</div>
 
       <div class="md:mt-36  w-full">
         <!--animate-bounce-->
 
-        <div class="mt-2  text-center justify mx-auto justify-center flex items-center text-blue-200 text-xl"> 👇 <span
+        <div class="mt-2  md:mt-24 text-center justify mx-auto justify-center flex items-center text-blue-200 text-xl"> 👇 <span
             class="mx-4">scroll
             down</span></div>
         <div class="mt-12">
@@ -376,12 +432,12 @@
                   src="images/Group 62496.png" />
               </a>
             </div>
-            <div class="flex mx-auto grid grids-rows-2 h-8 justify-center animate__animated animate__fadeInUp">
+            <div class="flex mx-auto grid grid-rows-2 lg:grid-rows-3 h-8 justify-center animate__animated animate__fadeInUp">
               <div>
                 <p class="text-blue-400 justify-center mx-auto  flex">Alchemist</p>
               </div>
               <div>
-                <p class="text-gray-300 -ml-8 w-48"> <a
+                <p class="text-gray-300 -ml-12 mt-3 md:mt-4 w-48"> <a
                     href="https://alchemist-softwarehouse.co/">alchemistSoftwarehouse.co</a></p>
               </div>
             </div>
@@ -476,6 +532,7 @@
         </div>
       </div>
     </div>
+   
 </body>
 
 </html>
