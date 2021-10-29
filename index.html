@@ -14,7 +14,7 @@
     href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
     rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!--Replace with your tailwind.css once created-->
   <link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet" />
@@ -31,50 +31,58 @@
       background-attachment: fixed;
     }
 
-/*RESPONSIVE NAVBAR MENU STARTS*/
-/* CHECKBOX HACK */
-input[type=checkbox]{
- display: none;
-} 
-/*HAMBURGER MENU*/
-.hamburger {
- display: none;
- font-size: 24px;
- user-select: none;
-}
-/* APPLYING MEDIA QUERIES */
-@media (max-width: 768px) {
-.menu{ 
- display:none;
- background-color:rgb(17, 21, 56);
- text-align: left;
- padding: 16px 0;
- border: 2;
+    /*RESPONSIVE NAVBAR MENU STARTS*/
+    /* CHECKBOX HACK */
+    input[type=checkbox] {
+      display: none;
+    }
 
-}
-.menu li:hover {
- display: inline-block;
- background-color:#0c0c0c;
- transition: 0.3s ease;
-}
-.menu li + li {
- margin-top: 12px;
-}
-input[type=checkbox]:checked ~ .menu{
- display: block;
-}
-.hamburger {
- display: block;
-}
-.dropdown {
- left: 50%;
- top: 30px;
- transform: translateX(35%);
-}
-.dropdown li:hover {
- background-color: #4c9e9e;
-}
-}
+    /*HAMBURGER MENU*/
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      user-select: none;
+    }
+
+    /* APPLYING MEDIA QUERIES */
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        background-color: rgb(17, 21, 56);
+        text-align: left;
+        padding: 16px 0;
+        border: 2;
+
+      }
+
+      .menu li:hover {
+        display: inline-block;
+        background-color: #0c0c0c;
+        transition: 0.3s ease;
+      }
+
+      .menu li+li {
+        margin-top: 12px;
+      }
+
+      input[type=checkbox]:checked~.menu {
+        display: block;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .dropdown {
+        left: 50%;
+        top: 30px;
+        transform: translateX(35%);
+      }
+
+      .dropdown li:hover {
+        background-color: #4c9e9e;
+      }
+    }
   </style>
 </head>
 
@@ -82,95 +90,96 @@ input[type=checkbox]:checked ~ .menu{
   style="background-image: url('/images/bg.jpg');">
   <div class="h-full relative pl-8 pr-4">
     <!--Nav-->
-    <div  class=" w-full container mx-auto">
-      <div  class="  w-full flex items-center justify-between  text-white">
+    <div class=" w-full container mx-auto">
+      <div class="  w-full flex items-center justify-between  text-white">
         <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
           <img class=" w-20" src="images/khorapin.png" />
           Khora
           <span
-
             class="bg-clip-text text-transparent bg-gradient-to-b from-purple-400 via-blue-400 to-green-300">pin</span>
         </a>
         <input type="checkbox" id="checkbox_toggle" />
         <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-    
 
-        <div  class="menu absolute -right-4  md:right-24 justify-center 
-        z-10 -mb-64 -mr-8 flex w-1/2 md:justify-end md:content-center mr-20 
-        text-white text-xl font-normal md:-mt-24 md:-ml-9">
-         
-          <a class="active block md:inline-block md:ml-14 md:-mt-28 mx-auto md:mx-0 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-          href="index.html" >
-         Home
-        </a>
-          <a class="block  mx-auto md:mx-0 md:ml-14 md:-mt-28 md:inline-block no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+
+        <div class="menu absolute -right-4  md:right-24 justify-center 
+        z-10 -mb-64 -mr-8  md:-mb-2 flex w-1/2 md:justify-end md:content-center 
+        mr-20 
+        text-white text-xl font-normal  md:-ml-9">
+
+          <a class="active block md:inline-block md:ml-14  mx-auto md:mx-0 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+            href="index.html">
+            Home
+          </a>
+          <a class="block  mx-auto md:mx-0 md:ml-14  md:inline-block no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
             href="#aboutme">
             About
           </a>
-          <a class="block  mx-auto md:mx-0  md:ml-14 md:-mt-28 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+          <a class="block  mx-auto md:mx-0  md:ml-14  md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
             href="works.html">
             Works
           </a>
-          <a class="block mx-auto md:mx-0 md:ml-14 md:-mt-28 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+          <a class="block mx-auto md:mx-0 md:ml-14 md:inline-block  no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
             href="resume.html">
             Resume
           </a>
-     
+
         </div>
       </div>
     </div>
-   
+
     <!--Main-->
     <div class=" h-320 mx-auto flex flex-wrap sm:mt-36 flex-col md:flex-row items-center ">
       <!--Left Col-->
       <div class="flex h-full md:flex-row flex-col-reverse items-center ">
-      <div
-        class="lg:mt-48 flex-shrink-0 lg:justify-center  lg:mx-auto lg:ml-8 animate__animated animate__fadeInUp
+        <div class="lg:mt-48 flex-shrink-0 lg:justify-center  lg:mx-auto lg:ml-8 animate__animated animate__fadeInUp
          flex flex-col  w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
-        <h1
-          class="my-4 text-3xl md:mt-12 md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
-          👋 Hello, I'm
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-200 via-blue-500 to-purple-500">
-            Khorapin
-          </span>
+          <h1
+            class="my-4 text-3xl md:mt-12 md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
+            👋 Hello, I'm
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-200 via-blue-500 to-purple-500">
+              Khorapin
+            </span>
 
-        </h1>
-        <p class="flex-shrink-0 leading-normal text-lg  ml-2 md:text-xl mb-2 mt-4 text-gray-300  text-center md:text-left">
-          Information Technology student who are trying to be <br><span class=" underline">UX/UI Designer </span>. </p>
-        <p class="text-gray-400 mb-8"> 
+          </h1>
+          <p
+            class="flex-shrink-0 leading-normal text-lg  ml-2 md:text-xl mb-2 mt-4 text-gray-300  text-center md:text-left">
+            Information Technology student who are trying to be <br><span class=" underline">UX/UI Designer </span>.
+          </p>
+          <p class="text-gray-400 mb-8">
 
-          </span><em class="mb-2 flex justify-center mx-auto"> <span class=" material-icons-outlined">location_on</span>Banchang, Rayong</em></p>
+            </span><em class="mb-2 flex justify-center mx-auto"> <span
+                class=" material-icons-outlined">location_on</span>Banchang, Rayong</em></p>
 
-        <a class="mt-24" id="aboutme">
-          <div>
+          <a class="mt-24" id="aboutme">
+            <div>
 
-          </div>
-        </a>
-      </div>
+            </div>
+          </a>
+        </div>
 
 
-      <!--Right Col-->
+        <!--Right Col-->
 
 
         <img alt="" class=" overflow-hidden  animate__animated animate__fadeInRight mx-auto 
-         flex md:-mr-96  md:w-full md:h-full"
-          src="/images/coding.png" />
+         flex md:-mr-96  md:w-full md:h-full" src="/images/coding.png" />
 
-     
-</div>
+
+      </div>
 
       <div class="md:mt-36  w-full">
         <!--animate-bounce-->
 
-        <div class="mt-2  md:mt-24 text-center justify mx-auto justify-center flex items-center text-blue-200 text-xl"> 👇 <span
-            class="mx-4">scroll
+        <div class="mt-2 animate-bounce md:mt-24 text-center justify mx-auto justify-center flex items-center text-blue-200 text-xl">
+          👇 <span class="mx-4">scroll
             down</span></div>
         <div class="mt-12">
           <div class="grid md:grid-cols-2">
-            <div class="ml-36 mt-24 ">
+            <div class="mt-2 md:ml-36 mt-24 mx-auto ">
               <img class="animate__animated animate__slideInLeft" src="images/khorapin.png" alt="" />
-              <div class="grid md:grid-cols-2 ">
-                <div>
+              <div class="grid grid-cols-2 mx-auto  md:grid-cols-2 ">
+                <div class="">
                   <p class="text-blue-400">EMAIL</p>
                   <p class="text-gray-300">khorapin.g@gmail.com</p>
                 </div>
@@ -180,7 +189,7 @@ input[type=checkbox]:checked ~ .menu{
                 </div>
               </div>
             </div>
-            <div class="ml-36 mt-24">
+            <div class="md:ml-36 mt-24 md:mr-4 ">
 
               <p class="text-5xl text-bold">💁🏻‍♀️ Profile</p>
               <p class="font-normal text-xl mt-4">Proven problem-solving about user experience improve skills in
@@ -217,78 +226,130 @@ input[type=checkbox]:checked ~ .menu{
             <section class="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-4 py-12">
 
               <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             <a href="works.html#fourRegions">  <div
-                class="w-full h-full animate__animated animate__slideInUp bg-gradient-to-b  focus:ring transform transition hover:scale-105 duration-300 ease-in-out hover:bg-black bg-gray-900 rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
-                  <div class="mb-8 w-48 h-48">
-                    <img class=" w-48  " src="images/Group 62494.png" alt="photo">
-                  </div>
-                  <div class="text-center">
-                    <p class="font-semibold text-xl ">Four regions tourist place </p>
-                    <p class="text-gray-300 mt-4">website by HTML, CSS, Javascript.</p>
-                    <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+                <a href="works.html#fourRegions">
+                  <div
+                    class="w-full h-full animate__animated animate__slideInUp 
+                    bg-gray-900 
+                    bg-gradient-to-b 
+                    hover:from-blue-500 
+                    hover:via-indigo-500
+                    hover:to-blue-800 
+                    focus:ring transform transition 
+                    hover:scale-105 duration-300 ease-in-out  
+                    rounded-lg shadow-lg 
+                    p-12  flex-col 
+                    justify-center flex items-start ">
+                    <div class="mb-8 mx-auto ">
+                      <img class="  h-full " src="images/Group 62494.png" alt="photo">
+                    </div>
+                    <div class="text-center">
+                      <p class="font-semibold text-xl ">Four regions tourist place </p>
+                      <p class="text-gray-300 mt-4">website by HTML, CSS, Javascript.</p>
+                      <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
 
+                    </div>
                   </div>
-                </div></a> 
-                <a href="works.html#prisonSystem">    
-                   <div
-                  class="w-full h-full animate__animated animate__slideInUp bg-gradient-to-b  focus:ring transform transition hover:scale-105 duration-300 ease-in-out hover:bg-black bg-gray-900 rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
-                  <div class="mb-8">
-                    <img class=" w-48 h-48" src="images/Group 62478 2.png" alt="photo">
+                </a>
+                <a href="works.html#prisonSystem">
+                  <div
+                    class="w-full h-full animate__animated animate__slideInUp 
+                    bg-gray-900 bg-gradient-to-b hover:from-blue-500 
+                    hover:via-indigo-500
+                    hover:to-blue-800 
+                     focus:ring transform transition 
+                    hover:scale-105 duration-300 ease-in-out 
+                     rounded-lg shadow-lg p-12 flex flex-col 
+                    justify-center items-start">
+                    <div class="mb-8 flex items-start mx-auto">
+                      <img class=" w-48 h-full" src="images/Group 62478 2.png" alt="photo">
+                    </div>
+                    <div class="text-center">
+                      <p class="font-semibold text-xl">Prison System </p>
+                      <p class="text-gray-300 mt-4">coding prison system based on Java.</p>
+                      <p class="text-gray-400">Intern from Nov 2018 — Jul 2019</p>
+                    </div>
                   </div>
-                  <div class="text-center">
-                    <p class="font-semibold text-xl ">Prison System </p>
-                    <p class="text-gray-300 mt-4">coding prison system based on Java.</p>
-                    <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
-                  </div>
-                </div></a>
+                </a>
                 <a href="works.html#coolCream">
-                <div
-                class="w-full h-full animate__animated animate__slideInUp bg-gradient-to-b  focus:ring transform transition hover:scale-105 duration-300 ease-in-out hover:bg-black bg-gray-900 rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
-                <div class="mb-8 flex  py-16 my-auto">
-                    <img class="w-64 flex h-full my-auto" src="images/CoolCream 2.png" alt="photo">
+                  <div
+                    class="w-full h-full animate__animated animate__slideInUp 
+                     focus:ring transform transition hover:scale-105 
+                     duration-300 ease-in-out 
+                     bg-gray-900 bg-gradient-to-b hover:from-blue-500 
+                     hover:via-indigo-500
+                     hover:to-blue-800 
+                    rounded-lg shadow-lg p-12 flex flex-col 
+                     items-start justify-center ">
+                    <div class="mb-8 flex  mx-auto py-16 my-auto">
+                      <img class="w-64 flex h-full my-auto" src="images/CoolCream 2.png" alt="photo">
+                    </div>
+                    <div class="text-center">
+                      <p class="font-semibold text-xl ">CoolCream </p>
+                      <p class="text-gray-300 mt-4">web application based on VueJS.</p>
+                      <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+                    </div>
                   </div>
-                  <div class="text-center">
-                    <p class="font-semibold text-xl ">CoolCream </p>
-                    <p class="text-gray-300 mt-4">web application based on VueJS.</p>
-                    <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
-                  </div>
-                </div></a>
-                <a href="works.html#mathRunner">  <div
-                  class="w-full h-full animate__animated animate__slideInUp bg-gradient-to-b  focus:ring transform transition hover:scale-105 duration-300 ease-in-out hover:bg-black bg-gray-900 rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
-                  <div class="mb-8  h-48">
-                    <img class="  mt-16" src="images/Group 62495.png" alt="photo">
-                  </div>
-                  <div class="text-center">
-                    <p class="font-semibold text-xl "> MathRunner </p>
-                    <p class="text-gray-300 mt-4">create game by Unity.</p>
-                    <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+                </a>
+                <a href="works.html#mathRunner">
+                  <div
+                    class="w-full h-full animate__animated animate__slideInUp
+                    bg-gray-900 bg-gradient-to-b hover:from-blue-500 
+                    hover:via-indigo-500
+                    hover:to-blue-800 
+                       focus:ring transform transition 
+                     hover:scale-105 duration-300 ease-in-out  
+                      rounded-lg shadow-lg p-12 flex mx-auto flex-col justify-center 
+                      items-center">
+                    <div class="mb-8  h-48">
+                      <img class="  mt-16" src="images/Group 62495.png" alt="photo">
+                    </div>
+                    <div class="text-center">
+                      <p class="font-semibold text-xl "> MathRunner </p>
+                      <p class="text-gray-300 mt-4">create game by Unity.</p>
+                      <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
 
+                    </div>
                   </div>
-                </div></a>
+                </a>
                 <a href="works.html#mongkoltorn">
-                <div
-                  class="w-full h-full animate__animated animate__slideInUp bg-gradient-to-b  focus:ring transform transition hover:scale-105 duration-300 ease-in-out hover:bg-black bg-gray-900 rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
-                  <div class="mb-8">
-                    <img class=" w-48 h-48" src="images/image 420.png" alt="photo">
+                  <div
+                    class="w-full h-full animate__animated animate__slideInUp
+                     focus:ring transform transition hover:scale-105 
+                     duration-300 ease-in-out 
+                     bg-gray-900 bg-gradient-to-b hover:from-blue-500 
+                    hover:via-indigo-500
+                    hover:to-blue-800 
+                      rounded-lg shadow-lg p-12 flex flex-col justify-center 
+       ">
+                    <div class="mb-8 ">
+                      <img class=" w-48 h-full justify-center flex items-center mx-auto" src="images/image 420.png" alt="photo">
+                    </div>
+                    <div class="text-center">
+                      <p class="font-semibold text-xl ">Mongkoltorn(clothes shop) </p>
+                      <p class="text-gray-300 mt-4">website based on React</p>
+                      <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+                    </div>
                   </div>
-                  <div class="text-center">
-                    <p class="font-semibold text-xl ">Mongkoltorn(clothes shop) </p>
-                    <p class="text-gray-300 mt-4">website based on React</p>
-                    <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+                </a> <a href="works.html#happyDiary">
+                  <div
+                    class="w-full h-full animate__animated animate__slideInUp 
+                    bg-gradient-to-b  focus:ring transform transition 
+                    hover:scale-105 duration-300 ease-in-out 
+                    bg-gray-900 bg-gradient-to-b hover:from-blue-500 
+                    hover:via-indigo-500
+                    hover:to-blue-800 
+                    rounded-lg shadow-lg 
+                    p-12 flex flex-col justify-center items-center">
+                    <div class="mb-8 w-48 items-start my-auto">
+                      <img class="w-64  my-auto" src="images/Group.png" alt="photo">
+                    </div>
+                    <div class="text-center">
+                      <p class="font-semibold text-xl ">Happy Diary</p>
+                      <p class="text-gray-300 mt-4">web application design on Figma.</p>
+                      <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+                    </div>
                   </div>
-                </div>
-                </a>  <a href="works.html#happyDiary">
-                <div
-                  class="w-full h-full animate__animated animate__slideInUp bg-gradient-to-b  focus:ring transform transition hover:scale-105 duration-300 ease-in-out hover:bg-black bg-gray-900 rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
-                  <div class="mb-8 w-48  my-auto">
-                    <img class="w-64  my-auto" src="images/Group.png" alt="photo">
-                  </div>
-                  <div class="text-center">
-                    <p class="font-semibold text-xl ">Happy Diary</p>
-                    <p class="text-gray-300 mt-4">web application design on Figma.</p>
-                    <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
-                  </div>
-                </div></a>
+                </a>
               </div>
             </section>
           </div>
@@ -302,19 +363,22 @@ input[type=checkbox]:checked ~ .menu{
                 <div class="flex flex-row-reverse md:contents animate__animated animate__fadeInLeft">
 
                   <div
-                    class="bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800 bg-opacity-20 col-start-1 col-end-5 p-4 rounded-xl my-4 ml-auto shadow-md">
-                    <a href="works.html#helloWorld">   <img class="w-48 mx-auto focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                      src="images/Mask Group.png" />
-                    <h3 class="font-semibold text-lg mb-1 flex justify-center mx-auto">HelloWorld Dolphin</h3>
-                    <p class="leading-tight text-justify">
-                      Design website on Figma position UX/UI Designer based on HTML, CSS, Javascript.
-
-                    </p>
-                    <p class="text-gray-400 mt-2">Intern from Nov 2018 — Jul 2019</p>
-</a>
+                    class="bg-blue-900 bg-gradient-to-r hover:from-blue-500 
+                    hover:via-indigo-500
+                    hover:to-blue-800 col-start-1 col-end-5 p-4 rounded-xl
+                    my-4 ml-auto shadow-md">
+                    <a href="works.html#helloWorld"> <img
+                        class="w-48 mx-auto focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        src="images/Mask Group.png" />
+                      <h3 class="font-semibold text-lg mb-1 flex justify-center mx-auto">HelloWorld Dolphin</h3>
+                      <p class="leading-tight text-justify">
+                        Design website on Figma position UX/UI Designer based on HTML, CSS, Javascript.
+                      </p>
+                      <p class="text-gray-400 mt-2">Intern from Nov 2018 — Jul 2019</p>
+                    </a>
                   </div>
                   <div class="col-start-5 col-end-6 md:mx-auto relative mr-10">
-                    <div class="h-full w-6 flex items-center justify-center">
+                    <div class="h-full w-6 flex items-center  justify-center">
                       <div class="h-full w-1 bg-blue-800 pointer-events-none"></div>
                     </div>
                     <div class="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-blue-500 shadow"></div>
@@ -329,27 +393,31 @@ input[type=checkbox]:checked ~ .menu{
                     <div class="w-6 h-6 absolute top-1/2 -mt-3 rounded-full bg-blue-500 shadow"></div>
                   </div>
                   <div
-                    class="bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800 bg-opacity-20 col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md">
-                    <a href="works.html#orcaWebsite">   <img class="w-48 mx-auto focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                      src="images/Group 62490.png" />
-                    <h3 class="font-semibold text-lg mb-1 flex justify-center mx-auto">Orca Website </h3>
-                    <p class="leading-tight text-justify">
-                      Design orca website coding based on ReactJS.
-                    </p>
-                    <p class="text-gray-400 mt-2">Intern from Nov 2018 — Jul 2019</p></a>
+                    class="bg-blue-900 bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800 col-start-6 col-end-10 p-4 rounded-xl my-4 mr-auto shadow-md">
+                    <a href="works.html#orcaWebsite"> <img
+                        class="w-48 mx-auto focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        src="images/Group 62490.png" />
+                      <h3 class="font-semibold text-lg mb-1 flex justify-center mx-auto">Orca Website </h3>
+                      <p class="leading-tight text-justify">
+                        Design orca website coding based on ReactJS.
+                      </p>
+                      <p class="text-gray-400 mt-2">Intern from Nov 2018 — Jul 2019</p>
+                    </a>
                   </div>
                 </div>
                 <!-- left -->
                 <div class="flex flex-row-reverse md:contents">
                   <div
-                    class="bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800 bg-opacity-20 col-start-1 col-end-5 p-4 rounded-xl my-4 ml-auto shadow-md">
-                    <a href="works.html#wipCamp">   <img class="w-48 mx-auto focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                      src="images/Mask Group-1.png" />
-                    <h3 class="font-semibold text-lg mb-1 flex justify-center mx-auto">WIP Camp#12</h3>
-                    <p class="leading-tight text-justify">
-                      Created Wip Camp’s website, which is a camp of Information Technology department.
-                    </p>
-                    <p class="text-gray-400 mt-2">Intern from Nov 2018 — Jul 2019</p></a>
+                    class="bg-blue-900 bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800  col-start-1 col-end-5 p-4 rounded-xl my-4 ml-auto shadow-md">
+                    <a href="works.html#wipCamp"> <img
+                        class="w-48 mx-auto focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                        src="images/Mask Group-1.png" />
+                      <h3 class="font-semibold text-lg mb-1 flex justify-center mx-auto">WIP Camp#12</h3>
+                      <p class="leading-tight text-justify">
+                        Created Wip Camp’s website, which is a camp of Information Technology department.
+                      </p>
+                      <p class="text-gray-400 mt-2">Intern from Nov 2018 — Jul 2019</p>
+                    </a>
                   </div>
                   <div class="col-start-5 col-end-6 md:mx-auto relative mr-10">
                     <div class="h-full w-6 flex items-center justify-center">
@@ -368,32 +436,36 @@ input[type=checkbox]:checked ~ .menu{
         <div class="mt-12">
           <p class="text-5xl text-bold"> 🗂 Business</p>
           <div class="grid md:grid-cols-2 ">
-            <a href="works.html#alchemist">  <div
-              class="grid grid-cols-2 gap-6 m-6 mx-auto  w-11/12 animate__animated animate__slideInUp  bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800  focus:ring transform transition hover:scale-105 duration-300 ease-in-out  rounded-lg shadow-lg">
-              <div class=" ">
-                <img class=" my-8 mx-auto py-auto w-36" src="images/Group 62496.png" alt="photo">
+            <a href="works.html#alchemist">
+              <div
+                class="grid grid-cols-2 gap-6 m-6 h-52 mx-auto  w-11/12 animate__animated animate__slideInUp  bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800  focus:ring transform transition hover:scale-105 duration-300 ease-in-out  rounded-lg shadow-lg">
+                <div class=" ">
+                  <img class=" my-8 mx-auto py-auto w-36" src="images/Group 62496.png" alt="photo">
+                </div>
+                <div class="text-left justify-left -ml-12 my-12 w-full">
+                  <p class="font-semibold text-xl ">Alchemist Lab </p>
+                  <p class="text-gray-300 mt-4">website by HTML, CSS, Javascript.</p>
+                  <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+
+                </div>
               </div>
-              <div class="text-left justify-left my-12 w-full">
-                <p class="font-semibold text-xl ">Alchemist Lab </p>
-                <p class="text-gray-300 mt-4">website by HTML, CSS, Javascript.</p>
-                <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+            </a>
+            <a href="works.html#sukapiban">
+              <div
+                class="grid grid-cols-2 gap-6 m-6 mx-auto  h-52 animate__animated animate__slideInUp  bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800  focus:ring transform transition hover:scale-105 duration-300 ease-in-out  rounded-lg shadow-lg">
+
+                <div class=" my-auto flex">
+                  <img class=" my-8 mx-auto py-auto  h-10 " src="images/Group 62489.png" alt="photo">
+                </div>
+                <div class="text-left justify-left my-12 w-full ">
+                  <p class="font-semibold text-xl ">ChemGis</p>
+                  <p class="text-gray-300 mt-4">website by ReactJS.</p>
+                  <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
+
+                </div>
 
               </div>
-            </div></a>
-            <a href="works.html#sukapiban"> <div
-              class="grid grid-cols-2 gap-6 m-6 mx-auto  h-52 animate__animated animate__slideInUp  bg-gradient-to-r hover:from-blue-500 hover:via-indigo-500 hover:to-blue-800  focus:ring transform transition hover:scale-105 duration-300 ease-in-out  rounded-lg shadow-lg">
-     
-                 <div class=" my-auto flex">
-                <img class=" my-8 mx-auto py-auto  h-12 " src="images/Group 62489.png" alt="photo">
-              </div>
-              <div class="text-left justify-left my-12 w-full ">
-                <p class="font-semibold text-xl ">Sukapiban Application </p>
-                <p class="text-gray-300 mt-4">website by ReactJS.</p>
-                <p class="text-gray-400 ">Intern from Nov 2018 — Jul 2019</p>
-           
-              </div>
-            
-            </div></a>
+            </a>
           </div>
 
         </div>
@@ -403,120 +475,107 @@ input[type=checkbox]:checked ~ .menu{
 
 
       <div
-        class=" w-full mx-auto mt-24 bg-opacity-50 bg-gradient-to-b  from-blue-900 via-indigo-600 to-blue-500  py-8 px-16 rounded-xl ">
-        <p class="text-5xl text-bold flex mx-auto justify-center  ">💁🏻‍♀️ Contact</p>
-        <div class="grid grid-cols-2 md:grid-cols-6 font-normal text-xl w-full mt-10">
+        class=" w-full mx-auto mt-6 md:mt-24 bg-opacity-50   py-8 px-16 rounded-xl ">
+       <div class="w-full ">
+          <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
+              <div class="text-center pb-12">
+                
+                  <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-white">
+                    💁🏻‍♀️ Contact           
+                  </h1>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!--Github-->
+                <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                      <div class="mb-8">
+                        <a href="https://github.com/Kpinnoes">
+                          <img
+                          class=" focus:ring transform transition hover:scale-105 duration-300 ease-in-out
+                      object-center object-cover  h-36 w-36" src="images/git.png" alt="photo">
+                    </a>  </div>
+                      <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2">Github</p>
+                          <p class="text-base text-gray-400 font-normal"><a href="https://github.com/Kpinnoes"> Kpinnoes</a></p>
+                      </div>
+                  </div>
+                   <!--Alchemist-->
+                  <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                      <div class="mb-8">
+                        <a href="https://alchemist-softwarehouse.co/"> 
+                          <img
+                          class=" focus:ring transform transition hover:scale-105 duration-300 ease-in-out
+                      object-center object-cover h-36 w-36" src="images/Group 62496.png" alt="photo">
+                     </a> </div>
+                      <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2">Alchemist</p>
+                          <p class="text-base text-gray-400 font-normal"><a  href="https://alchemist-softwarehouse.co/">alchemistSoftwarehouse.co.th</a></p>
+                      </div>
+                  </div>
+                   <!--Figma-->
+                  <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                      <div class="mb-8">
+                          <img   class=" focus:ring transform transition hover:scale-105 duration-300 ease-in-out
+                          object-center object-cover h-36 w-36"
+                           src="images/figma.png" alt="photo">
+                      </div>
+                      <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2">Figma</p>
+                          <p class="text-base text-gray-400 font-normal">Kpinnoes</p>
+                      </div>
+                  </div>
+                   <!--Mail-->
+                  <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                      <div class="mb-8">
+                        <a href="mailto:khorapin.g@gmail.com"> 
+     <img   
+     class="focus:ring transform transition hover:scale-105 duration-300 ease-in-out
+     object-center object-cover h-36 w-36"
+     src="images/MacOS Big Sur Mail/Mail.png" alt="photo">
+                    </a>  </div>
+                      <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2">Mail</p>
+                          <p class="text-base text-gray-400 font-normal">
+                            <a href="mailto:khorapin.g@gmail.com">khorapin.g@gmail.com</a></p>
+                      </div>
+                  </div>
+                   <!--Phone-->
+                  <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                      <div class="mb-8">
+                        <a href="tel:0800151153">    <img  
+                         class=" focus:ring transform transition hover:scale-105 duration-300 ease-in-out
+                          object-center object-cover h-36 w-36"
+                           src="images/Phone.png" alt="photo">
+                   </a>   </div>
+                      <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2">Phone</p>
+                          <p class="text-base text-gray-400 font-normal">
+                            <a href="tel:0800151153">(+66) 80 015 1153</a></p>
+                      </div>
+                  </div>
+                   <!--Line-->
+                  <div class="w-full bg-gray-900 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                      <div class="mb-8">
+                        <a href="https://line.me/ti/p/ImsgAfrE9l">  <img   class=" focus:ring transform transition hover:scale-105 duration-300 ease-in-out
+                          object-center object-cover h-36 w-36"
+                          src="images/Line.png" alt="photo">
+                   </a>   </div>
+                      <div class="text-center">
+                          <p class="text-xl text-white font-bold mb-2">Line</p>
+                          <p class="text-base text-gray-400 font-normal">
+                          <a href="https://line.me/ti/p/ImsgAfrE9l">pinmase</a></p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </div>
 
-          <div class="grid grid-rows-2 w-2/5 animate__animated animate__fadeInUp cursor-pointer mx-8">
-
-            <div class="mr-4 w-28 ">
-              <a href="https://github.com/Kpinnoes"> <img
-                  class="m-4 mx-2 focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  src="images/git.png " />
-              </a>
-            </div>
-            <div class="flex mx-auto grid grids-rows-2 h-8 justify-center">
-              <div>
-                <p class="text-blue-400 justify-center mx-auto flex ">Github</p>
-              </div>
-              <div>
-                <p class="text-gray-300"> <a href="https://github.com/Kpinnoes"> Kpinnoes</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-rows-2 w-2/5 animate__animated animate__fadeInUp cursor-pointer mx-8">
-
-            <div class="mr-4 w-28 ">
-              <a href="https://alchemist-softwarehouse.co/"> <img
-                  class="my-4 ml-4 focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  src="images/Group 62496.png" />
-              </a>
-            </div>
-            <div class="flex mx-auto grid grid-rows-2 lg:grid-rows-3 h-8 justify-center animate__animated animate__fadeInUp">
-              <div>
-                <p class="text-blue-400 justify-center mx-auto  flex">Alchemist</p>
-              </div>
-              <div>
-                <p class="text-gray-300 -ml-12 mt-3 md:mt-4 w-48"> <a
-                    href="https://alchemist-softwarehouse.co/">alchemistSoftwarehouse.co</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-rows-2 w-2/5 animate__animated animate__fadeInUp cursor-pointer mx-8">
-
-            <div class="mr-4 w-28 ">
-              <a href="https://www.figma.com/@kpinnoes"> <img
-                  class="m-4 mx-2 focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  src="images/figma.png" /></a>
-            </div>
-            <div class="flex mx-auto grid grids-rows-2 h-8 justify-center">
-              <div>
-                <p class="text-blue-400 justify-center mx-auto flex ">Figma</p>
-              </div>
-              <div>
-                <p class="text-gray-300"> <a href="https://www.figma.com/@kpinnoes">Kpinnoes</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-rows-2 w-2/5 animate__animated animate__fadeInUp cursor-pointer mx-8">
-
-            <div class="mr-4 w-28 ">
-              <a href="mailto:khorapin.g@gmail.com"> <img
-                  class="m-4 mx-2 focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  src="images/MacOS Big Sur Mail/Mail.png" />
-              </a>
-            </div>
-            <div class="flex mx-auto grid grids-rows-2 h-8 justify-center">
-              <div class="w-12 ml-10 ">
-                <p class="text-blue-400 justify-center mx-auto  flex">Mail</p>
-              </div>
-              <div class="-ml-8">
-                <p class="text-gray-300"> <a href="mailto:khorapin.g@gmail.com">khorapin.g@gmail.com</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-rows-2 w-2/5 animate__animated animate__fadeInUp cursor-pointer mx-8">
-
-            <div class="mr-4 w-28 ">
-              <a href="tel:0800151153"> <img
-                  class="m-4 mx-2 ml-8 focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  src="images/Phone.png" /></a>
-            </div>
-            <div class="flex mx-auto grid grids-rows-2 h-8 justify-center ">
-              <div>
-                <p class="text-blue-400 justify-center mx-auto  flex">Phone</p>
-              </div>
-              <div class="">
-                <p class="text-gray-300 w-48  "><a href="tel:0800151153">(+66) 80 015 1153</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-rows-2 w-2/5 animate__animated animate__fadeInUp cursor-pointer mx-8">
-
-            <div class="mr-4 w-28 ">
-              <a href="https://line.me/ti/p/ImsgAfrE9l"><img
-                  class="m-4 mx-2 focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                  src="images/Line.png" />
-              </a>
-            </div>
-            <div class="flex mx-auto grid grids-rows-2 h-8 justify-center">
-              <div>
-                <p class="text-blue-400 justify-center mx-auto flex ">Line</p>
-              </div>
-              <div>
-                <p class="text-gray-300"><a href="https://line.me/ti/p/ImsgAfrE9l">pinmasa</a></p>
-              </div>
-            </div>
-          </div>
-
-        </div>
         <a href="resume.html"><button
             class="justify-center mx-auto py-4 font-semibold flex w-48 h-16  justify-center text-xl font-normal bg-blue-200 bg-gradient-to-b from-blue-200 to-blue-400 hover:from-blue-400 hover:to-blue-200 text-blue-800  py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
             type="button">
             Resume
           </button></a>
       </div>
-
+     
       <div class="mt-16">
 
 
@@ -532,7 +591,7 @@ input[type=checkbox]:checked ~ .menu{
         </div>
       </div>
     </div>
-   
+
 </body>
 
 </html>
