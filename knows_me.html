@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Knows Me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --milk:#FFFFFF;--cream:#F1EEFB;--paper:#FFFFFF;--ink:#232B22;--ink-soft:#656B5F;
+  --accent:#2F6FD6;--accent-deep:#1F55B0;--accent-soft:#DCE8FB;
+  --blue:#86C5F4;--turq:#52D3C6;--purple:#A68BFA;--green:#98E0A8;--pink:#F8A9D0;
+  --line:rgba(35,43,34,.09);--line-strong:rgba(35,43,34,.18);
+  --display:'Bricolage Grotesque','Anuphan',system-ui,sans-serif;
+  --body:'Anuphan','Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{width:100%;overflow-x:hidden;font-family:var(--body);color:var(--ink);background:#F4F9F1}
+.world{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;
+  background:linear-gradient(165deg,#8ECEF5 0%,#A8D9F5 30%,#C4E8F7 55%,#D8F0E8 75%,#B8DDB0 100%)}
+#c{display:block;width:100%;height:100%;position:absolute;inset:0}
+a{color:inherit;text-decoration:none}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:8px}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;padding:.8em 1.55em;border-radius:999px;border:0;cursor:pointer;font:600 1rem/1.2 var(--body);color:var(--ink);transition:transform .15s ease,box-shadow .15s ease}
+.btn:active{transform:translateY(3px)}
+.btn-dark{background:var(--ink);color:#fff;box-shadow:0 3px 0 #0A0F0A,0 12px 20px -12px rgba(0,0,0,.5)}
+.btn-dark:active{box-shadow:0 0 0 #0A0F0A}
+/* nav */
+.nav-wrap{position:fixed;inset:14px 0 auto;z-index:50;pointer-events:none}
+.nav{pointer-events:auto;width:min(1080px,calc(100% - 28px));margin-inline:auto;display:flex;align-items:center;gap:18px;padding:8px 10px 8px 12px;border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 0 0 1px var(--line),0 12px 30px -18px rgba(55,70,40,.4)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;line-height:1.1}
+.brand small{display:block;font:400 .72rem/1.2 var(--body);color:var(--ink-soft)}
+.brand-mark{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#cfe9f7;box-shadow:0 0 0 2px #fff,0 0 0 4px var(--turq),0 6px 10px -4px rgba(0,0,0,.3)}
+.brand-mark img{width:100%;height:100%;object-fit:cover}
+.nav-links{display:flex;gap:4px;margin-inline:auto}
+.nav-links a{display:block;padding:.5em 1.05em;border-radius:999px;font-weight:500;font-size:.95rem;color:var(--ink-soft);transition:background .2s,color .2s}
+.nav-links a:hover{color:var(--ink);background:rgba(35,43,34,.05)}
+.nav-links a.is-active{background:var(--accent-soft);color:var(--accent-deep);box-shadow:0 3px 0 #B4CDF2}
+.nav-cta{padding:.6em 1.3em;font-size:.95rem}
+.menu-btn{display:none;margin-left:auto;padding:.55em 1.1em;border-radius:999px;border:0;background:#fff;box-shadow:0 0 0 1px var(--line);font:600 .95rem var(--body);cursor:pointer;color:var(--ink)}
+@media(max-width:860px){
+  .nav-links,.nav-cta{display:none}
+  .menu-btn{display:block}
+  .nav{flex-wrap:wrap;border-radius:28px}
+  .nav.open .nav-links{display:flex;flex-direction:column;width:100%;order:3;padding:6px 0 8px}
+  .nav.open .nav-links a{padding:.75em 1em}
+}
+.hero{position:absolute;left:52px;bottom:80px;z-index:10}
+.hero-label{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+            color:rgba(255,255,255,.8);margin-bottom:10px}
+.hero h1{font-size:clamp(3rem,8vw,5.5rem);font-weight:900;line-height:1.0;
+         color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.18)}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.85);margin-top:14px;max-width:360px;line-height:1.5}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:12px 28px;
+     border-radius:28px;background:#1A5230;color:#fff;font-weight:700;font-size:.92rem;
+     text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:.2s}
+.cta:hover{background:#1E6038;transform:translateY(-2px)}
+
+/* ---------- crew: Tae ---------- */
+.crew{padding:clamp(56px,9vw,110px) 0 clamp(64px,10vw,120px);
+  background:radial-gradient(900px 600px at 0% 0%,rgba(152,224,168,.28),transparent 70%),
+             radial-gradient(800px 600px at 100% 100%,rgba(248,190,140,.25),transparent 70%),#F7FAF4}
+.wrap{width:min(1180px,calc(100% - 48px));margin-inline:auto}
+.crew-head{margin-bottom:clamp(24px,4vw,40px)}
+.eyebrow{display:inline-block;margin-bottom:10px;padding:.3em .9em;border-radius:999px;background:#FCE6D2;color:#B0602A;font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+.crew-head h2{font-family:var(--display);font-weight:600;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.05;letter-spacing:-.03em}
+.pet-card{display:grid;grid-template-columns:1.05fr 1fr;border-radius:36px;overflow:hidden;background:#fff;
+  box-shadow:0 0 0 1px var(--line),0 6px 0 rgba(35,43,34,.04),0 36px 60px -34px rgba(55,70,40,.45)}
+.pet-stage{position:relative;min-height:520px;
+  background:radial-gradient(70% 55% at 50% 38%,#FFF6EA 0%,rgba(255,246,234,0) 70%),
+             linear-gradient(180deg,#CFE8C4 0%,#A9D39A 62%,#8DBF7E 100%)}
+.pet-stage::before{content:"";position:absolute;inset:auto -10% -30% -10%;height:55%;border-radius:50%;background:rgba(60,110,50,.18);filter:blur(30px)}
+.pet-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.pet-stage canvas.grabbing{cursor:grabbing}
+.pet-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:.4em;padding:.4em .95em;border-radius:999px;background:rgba(255,255,255,.85);font-size:.8rem;font-weight:600;color:var(--ink-soft);pointer-events:none;box-shadow:0 4px 12px -6px rgba(0,0,0,.25)}
+.pet-name-tag{position:absolute;top:18px;left:18px;padding:.45em 1em;border-radius:14px;background:#fff;font-family:var(--display);font-weight:700;box-shadow:0 3px 0 #F0C9A6,0 10px 18px -10px rgba(0,0,0,.35);transform:rotate(-3deg)}
+.pet-info{padding:clamp(26px,4vw,48px);display:flex;flex-direction:column;gap:18px}
+.pet-title{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.pet-title h3{font-family:var(--display);font-weight:700;font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;letter-spacing:-.03em}
+.pet-title h3 span{font-family:var(--body);font-weight:600;font-size:.42em;color:var(--ink-soft);letter-spacing:0;margin-left:.3em}
+.pet-breed{padding:.35em .9em;border-radius:999px;background:#FCE6D2;color:#9A4E1C;font-weight:600;font-size:.88rem;margin-bottom:.4em}
+.pet-info > p{color:var(--ink-soft);font-size:1.02rem;line-height:1.65}
+.pet-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fact{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;background:#F7F5F0;box-shadow:0 0 0 1px var(--line)}
+.fact-ico{flex:none;width:40px;height:40px;border-radius:13px;display:grid;place-items:center;font-size:1.2rem;background:var(--t,#FCE6D2);box-shadow:inset 0 -3px 0 rgba(35,43,34,.07)}
+.fact small{display:block;font-size:.75rem;color:var(--ink-soft);line-height:1.3}
+.fact b{display:block;font-weight:600;font-size:.95rem;line-height:1.3}
+.pet-bottom{display:flex;align-items:center;gap:18px;margin-top:auto;flex-wrap:wrap}
+.polaroid{flex:none;width:118px;padding:7px 7px 24px;background:#fff;border-radius:6px;transform:rotate(4deg);
+  box-shadow:0 0 0 1px var(--line),0 14px 24px -12px rgba(0,0,0,.35);position:relative}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;object-position:50% 20%;border-radius:3px;display:block}
+.polaroid figcaption{position:absolute;bottom:4px;left:0;right:0;text-align:center;font-size:.72rem;font-weight:600;color:var(--ink-soft)}
+.pet-traits{display:flex;flex-wrap:wrap;gap:8px;flex:1;min-width:200px}
+.trait{padding:.35em .9em;border-radius:999px;background:#EEF6E9;font-size:.86rem;font-weight:500}
+.fact-age{font-weight:500;color:var(--ink-soft);margin-left:.35em;font-size:.88em}
+.pet-favs h4{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.fav-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fav{display:flex;align-items:center;gap:12px;padding:10px 14px 10px 10px;border-radius:18px;background:var(--t);box-shadow:inset 0 -3px 0 rgba(35,43,34,.06)}
+.fav-ico{flex:none;width:48px;height:48px;border-radius:14px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 10px -6px rgba(0,0,0,.3)}
+.fav-ico svg{width:36px;height:36px}
+.fav b{display:block;font-weight:600;line-height:1.25}
+.fav small{display:block;font-size:.8rem;color:var(--ink-soft)}
+@media(max-width:400px){.fav-list{grid-template-columns:1fr}}
+.crew + .crew{padding-top:0}
+.pet-card.flip{grid-template-columns:1fr 1.05fr}
+.pet-card.flip .pet-stage{order:2;background:radial-gradient(70% 55% at 50% 38%,#FFF3E4 0%,rgba(255,243,228,0) 70%),linear-gradient(180deg,#F6DDBF 0%,#EBC59A 62%,#DDB083 100%)}
+.pet-card.flip .pet-stage::before{background:rgba(140,90,40,.18)}
+.eyebrow.alt{background:#FFE3CC;color:#A4501C}
+.polaroid-stack{position:relative;width:170px;height:156px;flex:none}
+.polaroid-stack .polaroid{position:absolute;top:0;left:0}
+.polaroid-stack .polaroid:first-child{transform:rotate(-7deg) translate(4px,10px)}
+.polaroid-stack .polaroid:last-child{transform:rotate(5deg) translate(46px,-2px)}
+@media(max-width:900px){.pet-card.flip{grid-template-columns:1fr}.pet-card.flip .pet-stage{order:0}}
+.pet-card.sky .pet-stage{background:radial-gradient(70% 55% at 50% 38%,#F7F4FF 0%,rgba(247,244,255,0) 70%),linear-gradient(180deg,#DCE3FA 0%,#C7D2F3 62%,#B3C1EC 100%)}
+.pet-card.sky .pet-stage::before{background:rgba(70,80,150,.16)}
+.eyebrow.sky{background:#E2E6FB;color:#4752A8}
+.pet-card.sun .pet-stage{background:radial-gradient(70% 55% at 50% 38%,#FFFBEA 0%,rgba(255,251,234,0) 70%),linear-gradient(180deg,#FFF0BF 0%,#F8DF92 62%,#EDCC74 100%)}
+.pet-card.sun .pet-stage::before{background:rgba(150,110,20,.16)}
+.eyebrow.sun{background:#FFF0BF;color:#8A6410}
+.fav-list.three{grid-template-columns:repeat(3,1fr)}
+.fav-list.three .fav{flex-direction:column;text-align:center;gap:8px;padding:12px 8px}
+@media(max-width:520px){.fav-list.three{grid-template-columns:1fr}.fav-list.three .fav{flex-direction:row;text-align:left;padding:10px 14px 10px 10px}}
+@media(max-width:900px){
+  .pet-card{grid-template-columns:1fr}
+  .pet-stage{min-height:420px}
+}
+@media(max-width:520px){
+  .pet-facts{grid-template-columns:1fr}
+  .hero{left:24px;right:24px;bottom:56px}
+}
+</style>
+</head>
+<body>
+<div class="world">
+<canvas id="c"></canvas>
+
+<header class="nav-wrap">
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a class="brand" href="home.html" aria-label="Khorapin Gadpu, back to top">
+      <span class="brand-mark"><img src="data:image/jpeg;base64,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" alt="" width="40" height="40"></span>
+      <span>Khorapin<small>Software Analyst</small></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="home.html">About</a></li>
+      <li><a href="home.html#experience">Experience</a></li>
+      <li><a href="home.html#certifications">Certifications</a></li>
+      <li><a href="home.html#works">Works</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a class="is-active" href="knows_me.html">Knows Me</a></li>
+      <li><a href="home.html#contact">Contact</a></li>
+     
+    </ul>
+    <!-- TODO: put your resume PDF next to this file and keep the name, or change the href -->
+    <a class="btn btn-dark nav-cta" href="resume.pdf">Resume</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-label">Extra Know Me</div>
+  <h1>Knows<br>me</h1>
+  <p>A little world of things and creatures that know me best.</p>
+  <a class="cta" href="#tae">Meet the crew →</a>
+</div>
+</div>
+
+<!-- ================= CREW: TAE ================= -->
+<section class="crew" id="tae">
+  <div class="wrap">
+    <div class="crew-head">
+      <span class="eyebrow">Meet the crew · 01</span>
+      <h2>The fluffiest member of the team</h2>
+    </div>
+
+    <article class="pet-card">
+      <div class="pet-stage">
+        <span class="pet-name-tag">Tae 🐾</span>
+        <canvas id="taeCanvas" role="img" aria-label="3D clay model of Tae, a white and ginger Thai Bangkaew dog sitting on a stone with tongue out"></canvas>
+        <span class="pet-hint">↔ Drag to spin</span>
+      </div>
+
+      <div class="pet-info">
+        <div class="pet-title">
+          <h3>เต้<span>Tae</span></h3>
+          <span class="pet-breed">Thai Bangkaew</span>
+        </div>
+        <p>Meet Tae, my Thai Bangkaew, born in April 2020. Tae is playful and fearless but has never bitten anyone, and loves playing with people more than anything. Well, almost anything: eating comes first.</p>
+
+        <div class="pet-facts">
+          <div class="fact" style="--t:#FCE6D2"><span class="fact-ico">🐕</span><div><small>Breed</small><b>Thai Bangkaew</b></div></div>
+          <div class="fact" style="--t:#E3F1DC"><span class="fact-ico">🎂</span><div><small>Born</small><b>April 2020<span class="fact-age" id="taeAge"></span></b></div></div>
+          <div class="fact" style="--t:#FFF1DF"><span class="fact-ico">🍖</span><div><small>Main hobby</small><b>Eating, all day</b></div></div>
+          <div class="fact" style="--t:#FDE3EA"><span class="fact-ico">😛</span><div><small>Signature look</small><b>Big smile, tongue out</b></div></div>
+        </div>
+
+
+        <div class="pet-favs">
+          <h4>Favourite toys</h4>
+          <div class="fav-list">
+            <div class="fav" style="--t:#F1E2D3">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 22a19 19 0 0 0 38 0z" fill="#7A4A28"/><path d="M5 22a19 19 0 0 0 38 0" fill="none" stroke="#5E3519" stroke-width="2"/><ellipse cx="24" cy="22" rx="19" ry="5" fill="#F6EEDF"/><ellipse cx="24" cy="22" rx="15" ry="3.2" fill="#E9DCC6"/><path d="M12 30l3 2M20 34l2 1M30 33l3-2M36 28l2-2" stroke="#5E3519" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+              <div><b>Coconut shell</b><small>กะลามะพร้าว</small></div>
+            </div>
+            <div class="fav" style="--t:#DDEBF6">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="11" y="14" width="24" height="29" rx="5" fill="#EEF4F8" stroke="#9DB5C6" stroke-width="2"/><path d="M26 14V9h6v5" fill="#2F6FD6"/><rect x="25" y="6" width="8" height="4" rx="1.5" fill="#2F6FD6"/><path d="M15 14v-2a4 4 0 0 1 4-4h3" fill="none" stroke="#9DB5C6" stroke-width="2.5" stroke-linecap="round"/><path d="M15 25h16M15 31h16" stroke="#C9D8E3" stroke-width="2"/></svg></span>
+              <div><b>Gallon jug</b><small>แกลลอน</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="pet-bottom">
+          <figure class="polaroid">
+            <img src="images/tae.webp" alt="Photo of Tae sitting on a stone in the garden" loading="lazy">
+            <figcaption>the real Tae</figcaption>
+          </figure>
+          <div class="pet-traits">
+            <span class="trait">🎾 Playful</span>
+            <span class="trait">🤍 Never bites</span>
+            <span class="trait">🙋 Loves people</span>
+            <span class="trait">🦁 Fearless</span>
+            <span class="trait">🍚 Lives to eat</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CREW: HENG ================= -->
+<section class="crew" id="heng">
+  <div class="wrap">
+    <div class="crew-head">
+      <span class="eyebrow alt">Meet the crew · 02</span>
+      <h2>Tough guard, soft heart</h2>
+    </div>
+
+    <article class="pet-card flip">
+      <div class="pet-stage">
+        <span class="pet-name-tag">Heng 🐾</span>
+        <canvas id="hengCanvas" role="img" aria-label="3D clay model of Heng, a ginger and white Thai Bangkaew dog with a brown muzzle and a little tongue out, next to a ball and fallen leaves"></canvas>
+        <span class="pet-hint">↔ Drag to spin</span>
+      </div>
+
+      <div class="pet-info">
+        <div class="pet-title">
+          <h3>เฮง<span>Heng</span></h3>
+          <span class="pet-breed">Thai Bangkaew</span>
+        </div>
+        <p>Heng is a Thai Bangkaew too, born in March 2020. Heng is a serious, fierce guard but still loves playing with people, is always up for a run and never turns down a bowl of rice. The one weakness: thunder.</p>
+
+        <div class="pet-facts">
+          <div class="fact" style="--t:#FCE6D2"><span class="fact-ico">🐕</span><div><small>Breed</small><b>Thai Bangkaew</b></div></div>
+          <div class="fact" style="--t:#E3F1DC"><span class="fact-ico">🎂</span><div><small>Born</small><b>March 2020<span class="fact-age" id="hengAge"></span></b></div></div>
+          <div class="fact" style="--t:#FFF1DF"><span class="fact-ico">🍚</span><div><small>Favourite food</small><b>Rice</b></div></div>
+          <div class="fact" style="--t:#E4E7F5"><span class="fact-ico">⛈️</span><div><small>Scared of</small><b>Thunder</b></div></div>
+        </div>
+
+        <div class="pet-favs">
+          <h4>Favourite toys</h4>
+          <div class="fav-list">
+            <div class="fav" style="--t:#E3F1DC">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 5C36 13 37 30 24 43 11 30 12 13 24 5z" fill="#6DB65B"/><path d="M24 9v36" stroke="#3E6B2A" stroke-width="2" stroke-linecap="round"/><path d="M24 20l-6-5M24 20l6-5M24 28l-7-5M24 28l7-5M24 35l-5-4M24 35l5-4" stroke="#3E6B2A" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+              <div><b>Leaves</b><small>ใบไม้</small></div>
+            </div>
+            <div class="fav" style="--t:#FDE3E2">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#F4C542"/><path d="M6 24a18 18 0 0 1 36 0z" fill="#E5484D"/><path d="M6 24h36" stroke="#fff" stroke-width="2.5"/><path d="M24 11l1.8 3.7 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z" fill="#fff"/></svg></span>
+              <div><b>Ball</b><small>ลูกบอล</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pet-bottom">
+          <div class="polaroid-stack">
+            <figure class="polaroid">
+              <img src="images/heng-5.webp" alt="Photo of Heng lying on the floor by the wall" loading="lazy" style="object-position:60% 25%">
+              <figcaption>chilling</figcaption>
+            </figure>
+            <figure class="polaroid">
+              <img src="images/heng-6.webp" alt="Photo of Heng grinning at the camera" loading="lazy" style="object-position:55% 30%">
+              <figcaption>the real Heng</figcaption>
+            </figure>
+          </div>
+          <div class="pet-traits">
+            <span class="trait">🛡️ Fierce guard</span>
+            <span class="trait">🙋 Loves people</span>
+            <span class="trait">🏃 Loves to run</span>
+            <span class="trait">🍚 Rice lover</span>
+            <span class="trait">⛈️ Scared of thunder</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CREW: THONG ================= -->
+<section class="crew" id="thong">
+  <div class="wrap">
+    <div class="crew-head">
+      <span class="eyebrow sky">Meet the crew · 03</span>
+      <h2>Our feathered friend</h2>
+    </div>
+
+    <article class="pet-card sky">
+      <div class="pet-stage">
+        <span class="pet-name-tag">Thong 🪶</span>
+        <canvas id="thongCanvas" role="img" aria-label="3D clay model of Thong, a glossy black hill myna with an orange beak and yellow wattles, standing beside a wooden birdhouse with an orange, a banana and a piece of coconut"></canvas>
+        <span class="pet-hint">↔ Drag to spin</span>
+      </div>
+
+      <div class="pet-info">
+        <div class="pet-title">
+          <h3>ทอง<span>Thong</span></h3>
+          <span class="pet-breed" style="background:#E2E6FB;color:#3E4796">Hill myna · นกขุนทอง</span>
+        </div>
+        <p>Thong is our hill myna, born in 2016. Glossy black feathers, a bright orange beak and golden wattles. Thong loves hanging out with people, eats happily from your hand and curls up in a little wooden birdhouse to sleep. Just like Heng, Thong is not a fan of thunder.</p>
+
+        <div class="pet-facts">
+          <div class="fact" style="--t:#E2E6FB"><span class="fact-ico">🐦</span><div><small>Species</small><b>Hill myna</b></div></div>
+          <div class="fact" style="--t:#E3F1DC"><span class="fact-ico">🎂</span><div><small>Born</small><b>2016<span class="fact-age" id="thongAge"></span></b></div></div>
+          <div class="fact" style="--t:#FFF1DF"><span class="fact-ico">🥄</span><div><small>Mealtime</small><b>Hand-fed</b></div></div>
+          <div class="fact" style="--t:#E4E7F5"><span class="fact-ico">⛈️</span><div><small>Scared of</small><b>Thunder</b></div></div>
+        </div>
+
+        <div class="pet-favs">
+          <h4>Favourite fruit</h4>
+          <div class="fav-list three">
+            <div class="fav" style="--t:#FFE9D2">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="27" r="16" fill="#F39A2B"/><circle cx="18" cy="22" r="3" fill="#F8B865"/><path d="M24 11v-4" stroke="#6B4A2A" stroke-width="2.5" stroke-linecap="round"/><path d="M25 10c3-5 9-5 11-3-3 4-8 5-11 3z" fill="#4E9A4A"/></svg></span>
+              <div><b>Orange</b><small>ส้ม</small></div>
+            </div>
+            <div class="fav" style="--t:#F1E2D3">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M5 22a19 19 0 0 0 38 0z" fill="#7A4A28"/><ellipse cx="24" cy="22" rx="19" ry="5" fill="#F6EEDF"/><ellipse cx="24" cy="22" rx="15" ry="3.2" fill="#E9DCC6"/></svg></span>
+              <div><b>Coconut</b><small>มะพร้าว</small></div>
+            </div>
+            <div class="fav" style="--t:#FFF5CC">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M9 14c2 15 13 24 30 22 2 0 3-2 1-3-14 0-22-7-26-20-1-2-5-2-5 1z" fill="#F5D547" stroke="#D9B52E" stroke-width="1.5"/><path d="M9 14l-2-4" stroke="#5B4326" stroke-width="3" stroke-linecap="round"/><circle cx="40" cy="35" r="1.8" fill="#5B4326"/></svg></span>
+              <div><b>Banana</b><small>กล้วย</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pet-bottom">
+          <figure class="polaroid">
+            <img src="images/thong.jpg" alt="Photo of Thong, a glossy black hill myna, perched on a branch in the aviary" loading="lazy" style="object-position:45% 40%">
+            <figcaption>the real Thong</figcaption>
+          </figure>
+          <div class="pet-traits">
+            <span class="trait">🙋 Loves people</span>
+            <span class="trait">🥄 Hand-fed</span>
+            <span class="trait">🍌 Fruit lover</span>
+            <span class="trait">🏠 Sleeps in the birdhouse</span>
+            <span class="trait">⛈️ Scared of thunder</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ================= CREW: GIRAFFE ================= -->
+<section class="crew" id="giraffe">
+  <div class="wrap">
+    <div class="crew-head">
+      <span class="eyebrow sun">Meet the crew · 04</span>
+      <h2>Free to fly, chooses to stay</h2>
+    </div>
+
+    <article class="pet-card flip sun">
+      <div class="pet-stage">
+        <span class="pet-name-tag">Giraffe 🪶</span>
+        <canvas id="giraffeCanvas" role="img" aria-label="3D clay model of Giraffe, a grey pearl cockatiel with a yellow crest and orange cheeks, perched on a wooden nest box beside holy basil, an orange wedge and a cuttlebone"></canvas>
+        <span class="pet-hint">↔ Drag to spin</span>
+      </div>
+
+      <div class="pet-info">
+        <div class="pet-title">
+          <h3>ยีราฟ<span>Giraffe</span></h3>
+          <span class="pet-breed" style="background:#FFF0BF;color:#7A5A0E">Cockatiel · นกค็อกคาเทล</span>
+        </div>
+        <p>Giraffe is our cockatiel, hand-raised from a chick just like Thong. Giraffe loves being around people and has never once flown off. Even with the cage door wide open, Giraffe stays right at home.</p>
+
+        <div class="pet-facts">
+          <div class="fact" style="--t:#FFF0BF"><span class="fact-ico">🐦</span><div><small>Species</small><b>Cockatiel</b></div></div>
+          <div class="fact" style="--t:#E3F1DC"><span class="fact-ico">🍼</span><div><small>Raised</small><b>Hand-fed from a chick</b></div></div>
+          <div class="fact" style="--t:#FDE3EA"><span class="fact-ico">🙋</span><div><small>Favourite thing</small><b>Playing with people</b></div></div>
+          <div class="fact" style="--t:#E2E6FB"><span class="fact-ico">🚪</span><div><small>Cage door open?</small><b>Still never leaves</b></div></div>
+        </div>
+
+        <div class="pet-favs">
+          <h4>Favourite snacks</h4>
+          <div class="fav-list three">
+            <div class="fav" style="--t:#E3F1DC">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 44V12" stroke="#6E4A5E" stroke-width="2.5" stroke-linecap="round"/><path d="M24 18c-9-1-13-7-12-11 6 0 11 4 12 11zM24 18c9-1 13-7 12-11-6 0-11 4-12 11zM24 30c-10-1-15-7-14-12 7 0 13 5 14 12zM24 30c10-1 15-7 14-12-7 0-13 5-14 12zM24 12c-3-3-3-7 0-9 3 2 3 6 0 9z" fill="#4C8F3E"/></svg></span>
+              <div><b>Holy basil</b><small>ใบกะเพรา</small></div>
+            </div>
+            <div class="fav" style="--t:#FFE9D2">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="27" r="16" fill="#F39A2B"/><circle cx="18" cy="22" r="3" fill="#F8B865"/><path d="M24 11v-4" stroke="#6B4A2A" stroke-width="2.5" stroke-linecap="round"/><path d="M25 10c3-5 9-5 11-3-3 4-8 5-11 3z" fill="#4E9A4A"/></svg></span>
+              <div><b>Orange</b><small>ส้ม</small></div>
+            </div>
+            <div class="fav" style="--t:#F4F1E8">
+              <span class="fav-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="10" ry="19" fill="#F7F2E6" stroke="#D9CFB6" stroke-width="2" transform="rotate(30 24 24)"/><path d="M17 13c4 6 8 14 13 22M14 19c4 5 8 12 12 18" stroke="#E4DAC2" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg></span>
+              <div><b>Cuttlebone</b><small>กระดองหมึก</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pet-bottom">
+          <figure class="polaroid">
+            <img src="images/giraffe.jpg" alt="Photo of Giraffe, a grey pearl cockatiel with a yellow crest, perched on a wooden nest box" loading="lazy" style="object-position:62% 44%">
+            <figcaption>the real Giraffe</figcaption>
+          </figure>
+          <div class="pet-traits">
+            <span class="trait">🙋 Loves people</span>
+            <span class="trait">🍼 Hand-raised</span>
+            <span class="trait">🏡 Never flies away</span>
+            <span class="trait">🌿 Basil muncher</span>
+            <span class="trait">🦑 Cuttlebone fan</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+// ── Helpers ──────────────────────────────────────────────────────────
+function clay(col, rough){
+  return new THREE.MeshStandardMaterial({color:col, roughness:rough||0.82, metalness:0});
+}
+function mesh(geo, mat){
+  var m = new THREE.Mesh(geo, mat);
+  m.castShadow = true; m.receiveShadow = true;
+  return m;
+}
+
+// ── Terrain height function (consistent lookup for object placement) ──
+var TS = 0.42;
+function tH(x, z){
+  return (Math.sin(x*0.17)*2.0 + Math.sin(z*0.13)*1.5
+        + Math.sin(x*0.30 + z*0.20)*0.9 + Math.cos(x*0.09 - z*0.11)*1.3) * TS;
+}
+
+// ── Renderer ─────────────────────────────────────────────────────────
+var canvas = document.getElementById('c');
+var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+// ── Scene ────────────────────────────────────────────────────────────
+var scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x8ECEF5, 26, 68);
+
+// ── Camera ───────────────────────────────────────────────────────────
+var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 150);
+camera.position.set(-1.5, 5.4, 11);
+camera.lookAt(-1.5, 0.6, -4);
+
+// ── Lights ───────────────────────────────────────────────────────────
+scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xE3DCEF, 0.92));
+
+var sun = new THREE.DirectionalLight(0xFFF3E2, 0.95);
+sun.position.set(10, 18, 8);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 0.5; sun.shadow.camera.far = 120;
+sun.shadow.camera.left = -32; sun.shadow.camera.right = 32;
+sun.shadow.camera.top = 24;   sun.shadow.camera.bottom = -24;
+sun.shadow.radius = 5;
+scene.add(sun);
+
+var fill = new THREE.DirectionalLight(0xCFE0FF, 0.32);
+fill.position.set(-8, 6, 4);
+scene.add(fill);
+
+// ── Terrain ──────────────────────────────────────────────────────────
+var terrGeo = new THREE.PlaneGeometry(90, 70, 88, 68);
+var tp = terrGeo.attributes.position;
+for(var i = 0; i < tp.count; i++){
+  tp.setZ(i, tH(tp.getX(i), -tp.getY(i)));
+}
+terrGeo.computeVertexNormals();
+var terr = mesh(terrGeo, clay(0x285C33, 0.75));  // deep meadow green
+terr.rotation.x = -Math.PI / 2;
+scene.add(terr);
+
+// ── Clouds ───────────────────────────────────────────────────────────
+function mkCloud(x, y, z, sc){
+  var g = new THREE.Group();
+  var mat = clay(0xEEF5FB, 0.85);
+  [[0,0,0,0.6],[0.6,-0.1,0,0.46],[-0.6,-0.08,0,0.44],[0.2,0.3,0,0.4],
+   [-0.22,0.28,0.1,0.36],[1.0,-0.2,0,0.3],[-1.0,-0.22,0,0.28]].forEach(function(c){
+    var b = mesh(new THREE.SphereGeometry(c[3], 12, 8), mat);
+    b.position.set(c[0], c[1], c[2]); g.add(b);
+  });
+  g.scale.setScalar(sc); g.position.set(x, y, z);
+  scene.add(g); return g;
+}
+var clouds = [
+  mkCloud(-8,  7.5, -16, 1.4),
+  mkCloud( 6,  9.0, -22, 1.8),
+  mkCloud(14,  7.0, -11, 1.2),
+  mkCloud(-16, 8.5,  -8, 1.1),
+  mkCloud( 1, 10.0, -30, 2.0),
+  mkCloud(-4,  6.8,  -7, 0.9),
+  mkCloud(-14, 6.6, -30, 1.6),
+  mkCloud(16,  7.2, -32, 1.8),
+  mkCloud(6,   6.2, -40, 2.2),
+  mkCloud(-24, 7.4, -38, 2.0),
+  mkCloud(-5,  7.8, -26, 1.3),
+  mkCloud(3,   8.4, -20, 1.0),
+  mkCloud(26,  6.4, -30, 1.6),
+  mkCloud(-10, 5.6, -44, 2.4),
+  mkCloud(12,  8.8, -22, 1.1),
+  mkCloud(-30, 6.0, -30, 1.5),
+  mkCloud(22,  5.4, -46, 2.4),
+  mkCloud(-18, 9.0, -22, 1.1)
+];
+
+// ── Trees ─────────────────────────────────────────────────────────────
+function mkPine(x, z, h){
+  var sy = tH(x, z), g = new THREE.Group();
+  var tr = mesh(new THREE.CylinderGeometry(0.05, 0.1, h*0.3, 6), clay(0x6B4423, 0.9));
+  tr.position.y = h * 0.15; g.add(tr);
+  var crs = [[0.52, 0.42, 0.65],[0.40, 0.80, 0.60],[0.28, 1.12, 0.52]];
+  for(var ci = 0; ci < crs.length; ci++){
+    var cr = crs[ci];
+    var cn = mesh(new THREE.ConeGeometry(cr[0]*h, cr[2]*h, 8),
+                  clay(ci%2 ? 0x1B5E35 : 0x2D7A44, 0.85));
+    cn.position.y = cr[1] * h; g.add(cn);
+  }
+  g.position.set(x, sy, z); scene.add(g);
+}
+function mkTree(x, z, h, idx){
+  var sy = tH(x, z), g = new THREE.Group();
+  var tr = mesh(new THREE.CylinderGeometry(0.07*h, 0.1*h, h*0.5, 8), clay(0x7A5230, 0.9));
+  tr.position.y = h * 0.25; g.add(tr);
+  var cols = [0x4A9242, 0x52963A, 0x3D8C40];
+  var can = mesh(new THREE.SphereGeometry(h*0.52, 12, 8), clay(cols[idx%3], 0.85));
+  can.position.y = h * 0.72; g.add(can);
+  g.position.set(x, sy, z); scene.add(g);
+}
+
+var treePts = [
+  [-10,-7],[-11,-12],[-9,-15],[0,-14],[3,-12],[1.5,-17],[13,-7],[14,-10],[15,-4],[12,-17],
+  [-13,-4],[-16,-7],[-14,-13],[-6,-17],[4,-16],[-2,-16],[-16,-2],[10,-3.5],[16,-12],
+  [-4,-19],[6,-19],[-1,-11],[17,-6],[-18,-10],[2,-9]
+];
+for(var tpi = 0; tpi < treePts.length; tpi++){
+  var pt = treePts[tpi];
+  if(tpi % 3 === 0) mkPine(pt[0], pt[1], 0.9 + (tpi%4)*0.15);
+  else mkTree(pt[0], pt[1], 0.9 + (tpi%3)*0.14, tpi);
+}
+
+// ── Resize ───────────────────────────────────────────────────────────
+function resize(){
+  var w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  var narrow = w / h < 0.9;   // phones: step back so the whole crew fits
+  // 25% closer than before, framed on the crew (text sits on the left)
+  if(narrow){ camera.position.set(0.05, 8.9, 21.4); camera.lookAt(0.05, 0.6, -5); }
+  else { camera.position.set(-1.5, 5.4, 11); camera.lookAt(-1.5, 0.6, -4); }
+  camera.updateProjectionMatrix();
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ── Animation loop ───────────────────────────────────────────────────
+var t = 0;
+var heroUpdaters = [];
+window.__hero = {scene:scene, tH:tH, add:function(f){ heroUpdaters.push(f); }};
+
+function animate(){
+  requestAnimationFrame(animate);
+  t += 0.016;
+  if(window.scrollY > window.innerHeight * 1.1) return;   // pause while scrolled away
+  for(var hu = 0; hu < heroUpdaters.length; hu++) heroUpdaters[hu](t);
+
+  // Clouds drift
+  clouds.forEach(function(c, ci){
+    c.position.x += (ci % 2 === 0 ? 0.004 : -0.003);
+    if(c.position.x >  32) c.position.x = -32;
+    if(c.position.x < -32) c.position.x =  32;
+  });
+
+  renderer.render(scene, camera);
+}
+animate();
+
+})();
+
+// ── Thai Bangkaew clay 3D builder (used for Tae and Heng) ───────────
+function ss(a, b, x){ var t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t*t*(3-2*t); }
+function makeBangkaew(cfg){
+'use strict';
+var emb = cfg.embed;
+var cv = emb ? null : document.getElementById(cfg.canvas);
+if((!cv && !emb) || !window.THREE) return;
+var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+var WHITE = new THREE.Color(0xF2EDE6), CREAM = new THREE.Color(0xF0E2CF),
+    GINGER = new THREE.Color(0xCF7A3C), GINGER_D = new THREE.Color(0xB5652A);
+
+function ss(a, b, x){ var t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t*t*(3-2*t); }
+function mat(col, rough){ return new THREE.MeshStandardMaterial({color:col, roughness:rough==null?0.78:rough, metalness:0}); }
+var vmat = new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.8, metalness:0});
+function M(geo, m){ var o = new THREE.Mesh(geo, m); o.castShadow = true; o.receiveShadow = true; return o; }
+
+// Smooth value noise -> soft, organic fur clumps (no stripes)
+function hash(x, y, z){ var h = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return h - Math.floor(h); }
+function vnoise(x, y, z){
+  var xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+  var u = x - xi, v = y - yi, w = z - zi;
+  u = u*u*(3-2*u); v = v*v*(3-2*v); w = w*w*(3-2*w);
+  function L(a, b, t){ return a + (b - a) * t; }
+  return L(L(L(hash(xi,yi,zi), hash(xi+1,yi,zi), u), L(hash(xi,yi+1,zi), hash(xi+1,yi+1,zi), u), v),
+           L(L(hash(xi,yi,zi+1), hash(xi+1,yi,zi+1), u), L(hash(xi,yi+1,zi+1), hash(xi+1,yi+1,zi+1), u), v), w);
+}
+// fur flows downward: clumps are stretched vertically
+function furN(x, y, z){
+  return (vnoise(x, y * 0.5, z) * 0.62 + vnoise(x * 2.1 + 7, y * 1.05, z * 2.1) * 0.28 + vnoise(x * 4.3, y * 2.2 + 3, z * 4.3) * 0.1) * 2 - 1;
+}
+
+// Sculpted blob: ellipsoid with fur + painted ginger/white pattern
+function blob(r, sx, sy, sz, opts){
+  opts = opts || {};
+  var g = new THREE.SphereGeometry(r, opts.seg || 48, Math.round((opts.seg || 48) * 0.75));
+  var p = g.attributes.position, cols = new Float32Array(p.count * 3), c = new THREE.Color();
+  for(var i = 0; i < p.count; i++){
+    var x = p.getX(i) / r, y = p.getY(i) / r, z = p.getZ(i) / r;
+    var th = Math.atan2(z, x), ph = Math.acos(Math.max(-1, Math.min(1, y)));
+    var bump = 1;
+    if(opts.fur){
+      var f = opts.freq || 5;
+      bump += opts.fur * furN(x * r * sx * f, y * r * sy * f, z * r * sz * f);
+    }
+    var R = r * bump, py = y * R * sy;
+    if(opts.droop && y < 0) py -= opts.droop * r * y * y;   // fur hangs down like a bib
+    p.setXYZ(i, x * R * sx, py, z * R * sz);
+    var gin = opts.paint ? opts.paint(x, y, z) : 0;
+    c.copy(WHITE).lerp(opts.tint || (gin > 0.85 ? GINGER_D : GINGER), gin);
+    if(opts.colorFn) opts.colorFn(x, y, z, c);
+    // subtle cream in the crevices to keep it clay-like
+    c.lerp(CREAM, 0.12 * ss(0.2, 1, -y));
+    cols[i*3] = c.r; cols[i*3+1] = c.g; cols[i*3+2] = c.b;
+  }
+  g.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+  g.computeVertexNormals();
+  return M(g, vmat);
+}
+
+// ── Scene ──
+if(!emb){
+var renderer = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
+camera.position.set(0, 2.1, 8.6);
+camera.lookAt(0, 1.45, 0);
+
+scene.add(new THREE.HemisphereLight(0xFFFFFF, 0x8DAF7E, 0.55));
+var key = new THREE.DirectionalLight(0xFFF1DE, 0.85);
+key.position.set(3.5, 6, 5); key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 6;
+key.shadow.camera.left = -3; key.shadow.camera.right = 3; key.shadow.camera.top = 4; key.shadow.camera.bottom = -2;
+scene.add(key);
+var rim = new THREE.DirectionalLight(0xCFE6FF, 0.55); rim.position.set(-4, 3, -4); scene.add(rim);
+var fillL = new THREE.DirectionalLight(0xFFE6D0, 0.25); fillL.position.set(-3, 1, 5); scene.add(fillL);
+
+// Stone slab
+var slab = M(new THREE.CylinderGeometry(1.75, 1.85, 0.32, 7), mat(0x9C968B, 0.95));
+slab.scale.set(1.15, 1, 0.75); slab.position.y = -0.16; slab.rotation.y = 0.2; scene.add(slab);
+var moss = M(new THREE.SphereGeometry(0.22, 16, 12), mat(0x7FB069, 0.9));
+moss.scale.set(1.4, 0.45, 1); moss.position.set(1.55, 0.02, 0.35); scene.add(moss);
+// leaves
+[[-1.85, 0.05, -0.5, 0.6],[1.75, 0.0, -0.7, -0.4],[-1.6, 0.0, 0.55, 1.2]].forEach(function(l){
+  var lf = M(new THREE.SphereGeometry(0.18, 12, 8), mat(0x4E9A4A, 0.8));
+  lf.scale.set(1, 0.25, 2); lf.position.set(l[0], l[1], l[2]); lf.rotation.y = l[3]; scene.add(lf);
+});
+
+}
+var dog = new THREE.Group(); (emb || scene).add(dog);
+
+// ── Haunches (left side has ginger on the flank) ──
+var hL = blob(0.62, 0.9, 0.92, 1.15, {fur:0.05, freq:4, paint:cfg.haunchL || function(x,y,z){ return ss(-0.05, 0.45, -x*0.8 + y*0.45 - z*0.15); }});
+hL.position.set(-0.55, 0.56, -0.28); dog.add(hL);
+var hR = blob(0.62, 0.9, 0.92, 1.15, {fur:0.05, freq:4, paint:cfg.haunchR || function(x,y,z){ return 0.35 * ss(0.4, 0.9, y*0.6 - z*0.5); }});
+hR.position.set(0.55, 0.56, -0.28); dog.add(hR);
+
+// ── Torso ──
+var torso = blob(0.74, 0.98, 1.3, 0.85, {fur:0.04, freq:4, paint:cfg.torsoPaint || function(x,y,z){
+  return Math.max(ss(0.05, 0.55, -x*0.95 - z*0.3 + y*0.25), 0.55 * ss(0.35, 0.85, x*0.6 - z*0.75 + y*0.3));
+}});
+torso.position.set(0, 1.18, -0.08); dog.add(torso);
+
+// ── Fluffy mane / chest ruff (the Bangkaew signature) ──
+// one soft mass from the cheeks down to the chest, ginger fading in at the back
+function maneBack(x, y, z){ return 0.9 * ss(0.25, 0.85, -z * 0.95 + Math.abs(x) * 0.35 + y * 0.2); }
+var collar = blob(0.52, 1.5, 0.9, 1.05, {seg:64, fur:0.09, freq:5.5, droop:0.25, paint:maneBack});
+collar.position.set(0, 2.0, 0.04); dog.add(collar);
+var ruff = blob(0.62, 1.22, 1.12, 0.9, {seg:64, fur:0.08, freq:5, droop:0.35, paint:maneBack});
+ruff.position.set(0, 1.6, 0.22); dog.add(ruff);
+var bib = blob(0.46, 1.12, 1.2, 0.74, {seg:56, fur:0.1, freq:6, droop:0.45});
+bib.position.set(0, 1.2, 0.42); dog.add(bib);
+
+// ── Front legs + paws ──
+[-1, 1].forEach(function(s){
+  var leg = blob(0.16, 1, 3.4, 1, {seg:32, fur:0.05, freq:6});
+  leg.position.set(s * 0.29, 0.56, 0.5); leg.rotation.x = 0.04; dog.add(leg);
+  // feathering on the back of the front legs
+  var fe = blob(0.11, 1, 2.6, 1, {seg:24, fur:0.12, freq:6, droop:0.3});
+  fe.position.set(s * 0.29, 0.62, 0.38); fe.rotation.x = -0.25; dog.add(fe);
+  var paw = blob(0.2, 1, 0.58, 1.35, {seg:24});
+  paw.position.set(s * 0.29, 0.08, 0.64); dog.add(paw);
+  for(var tz = -1; tz <= 1; tz++){
+    var toe = M(new THREE.SphereGeometry(0.065, 12, 8), mat(0xF4EEE5, 0.85));
+    toe.scale.set(1, 0.8, 1.2); toe.position.set(s * 0.29 + tz * 0.085, 0.09, 0.86); dog.add(toe);
+  }
+  // rear paws peeking out
+  var rp = blob(0.19, 1, 0.55, 1.45, {seg:24});
+  rp.position.set(s * 0.72, 0.08, 0.2); dog.add(rp);
+});
+
+// ── Tail: one fluffy plume curling up over the back-left ──
+function plume(pts, rMax){
+  var curve = new THREE.CatmullRomCurve3(pts.map(function(q){ return new THREE.Vector3(q[0], q[1], q[2]); }));
+  var TS = 64, RS = 32, fr = curve.computeFrenetFrames(TS, false);
+  var pos = [], col = [], idx = [], c = new THREE.Color(), P = new THREE.Vector3(), d = new THREE.Vector3();
+  for(var i = 0; i <= TS; i++){
+    var t = i / TS; curve.getPointAt(t, P);
+    var r = rMax * Math.pow(Math.sin(Math.PI * Math.pow(t, 0.75)), 0.55) + 0.07 * (1 - t);
+    for(var j = 0; j <= RS; j++){
+      var a = j / RS * Math.PI * 2;
+      d.copy(fr.normals[i]).multiplyScalar(Math.cos(a)).addScaledVector(fr.binormals[i], Math.sin(a));
+      var n = furN(P.x * 5 + d.x * 1.6, P.y * 5 + d.y * 1.6, P.z * 5 + d.z * 1.6);
+      var rr = r * (1 + 0.2 * n);
+      pos.push(P.x + d.x * rr, P.y + d.y * rr - Math.max(0, -d.y) * r * 0.25, P.z + d.z * rr);
+      var g = 0.55 * ss(0.35, 0.0, t) * ss(-0.2, 0.6, d.y);   // a little ginger at the root
+      c.copy(WHITE).lerp(GINGER, g).lerp(CREAM, 0.15 * ss(0, 1, -d.y));
+      col.push(c.r, c.g, c.b);
+    }
+  }
+  for(i = 0; i < TS; i++) for(j = 0; j < RS; j++){
+    var A = i * (RS + 1) + j, B = A + RS + 1;
+    idx.push(A, A + 1, B, B, A + 1, B + 1);
+  }
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  geo.setIndex(idx); geo.computeVertexNormals();
+  return M(geo, vmat);
+}
+var tail = new THREE.Group();
+tail.add(plume([[0, 0, 0], [-0.32, 0.12, -0.08], [-0.6, 0.42, -0.05], [-0.7, 0.8, 0.08], [-0.55, 1.1, 0.2], [-0.3, 1.22, 0.24]], 0.3));
+tail.position.set(-0.45, 0.62, -0.72); dog.add(tail);
+
+// ── Head ──
+var head = new THREE.Group();
+head.position.set(0, 2.5, 0.22);
+head.scale.setScalar(1.28);
+dog.add(head);
+var HA = 0.52 * 1.08, HB = 0.52 * 0.95, HC = 0.52 * 0.98;
+var skull = blob(0.52, 1.08, 0.95, 0.98, {fur:0.012, paint:cfg.headPaint || function(x,y,z){
+  // ginger cap over the crown, around the eyes and ears; white blaze down the middle
+  var cap = ss(-0.18, 0.12, y + 0.42 * Math.abs(x) - 0.08 - 0.25 * Math.max(0, z - 0.6));
+  var blazeW = 0.15 + 0.2 * ss(0.15, -0.45, y);
+  var blaze = (1 - ss(blazeW, blazeW + 0.07, Math.abs(x))) * ss(-0.3, 0.15, z);
+  return cap * (1 - blaze);
+}});
+head.add(skull);
+function surfZ(x, y){ var v = 1 - (x*x)/(HA*HA) - (y*y)/(HB*HB); return v > 0 ? HC * Math.sqrt(v) : 0; }
+
+// cheeks (white fluff)
+[-1, 1].forEach(function(s){
+  var ch = blob(0.25, 1.1, 0.95, 0.85, {seg:40, fur:0.1, freq:8, droop:0.3});
+  ch.position.set(s * 0.36, -0.26, 0.0); head.add(ch);
+});
+// muzzle
+var muzzle = blob(0.25, 1.0, 0.78, 1.25, {seg:40, tint:cfg.muzzleTint ? new THREE.Color(cfg.muzzleTint) : null, paint:cfg.muzzlePaint, colorFn:cfg.muzzleColor});
+muzzle.position.set(0, -0.14, 0.47); head.add(muzzle);
+// nose
+var nose = M(new THREE.SphereGeometry(0.085, 24, 16), mat(0x1C1818, 0.35));
+nose.scale.set(1.35, 0.95, 0.9); nose.position.set(0, -0.06, 0.78); head.add(nose);
+if(cfg.noseSpot){ // pink patch on top of the nose
+  var spot = M(new THREE.SphereGeometry(0.045, 16, 10), mat(0xE7A3A6, 0.6));
+  spot.scale.set(1.35, 0.5, 0.95); spot.position.set(0, 0.028, 0.765); head.add(spot);
+}
+var nhl = M(new THREE.SphereGeometry(0.022, 10, 8), mat(0xFFFFFF, 0.2));
+nhl.position.set(0.035, -0.02, 0.85); head.add(nhl);
+// mouth line from nose
+var ml = M(new THREE.CylinderGeometry(0.01, 0.01, 0.1, 6), mat(0x2B2222, 0.6));
+ml.position.set(0, -0.16, 0.76); head.add(ml);
+// open smiling mouth
+var grin = cfg.mouth === 'grin';
+var mouth = M(new THREE.SphereGeometry(0.17, 24, 16), mat(grin ? 0xC9566E : 0x5A2A33, 0.6));
+mouth.scale.set(grin ? 1.35 : 1.25, grin ? 0.75 : 0.55, 0.85); mouth.position.set(0, grin ? -0.31 : -0.3, 0.55); head.add(mouth);
+var jaw = blob(0.17, 1.05, 0.5, 1.1, {seg:24});
+jaw.position.set(0, grin ? -0.43 : -0.37, 0.48); head.add(jaw);
+if(grin){
+  var lip = M(new THREE.TorusGeometry(0.2, 0.018, 8, 32, Math.PI), mat(0x1F1A1A, 0.5));
+  lip.scale.set(1.05, 0.62, 1); lip.rotation.z = Math.PI; lip.position.set(0, -0.31, 0.63); head.add(lip);
+  [-1, 1].forEach(function(s){ // little fangs
+    var fang = M(new THREE.ConeGeometry(0.022, 0.07, 10), mat(0xFFFDF5, 0.3));
+    fang.position.set(s * 0.12, -0.36, 0.67); head.add(fang);
+  });
+  for(var tt = -2; tt <= 2; tt++){
+    var tooth = M(new THREE.SphereGeometry(0.018, 8, 6), mat(0xFFFDF5, 0.3));
+    tooth.scale.set(1, 0.9, 0.7); tooth.position.set(tt * 0.04, -0.42, 0.66); head.add(tooth);
+  }
+}
+var smileCorners = [];
+[-1, 1].forEach(function(s){ // smile corners
+  var sc = M(new THREE.TorusGeometry(0.1, 0.014, 8, 16, Math.PI * 0.55), mat(0x2B2222, 0.6));
+  sc.position.set(s * 0.12, -0.24, 0.62); sc.rotation.set(0, s * 0.5, s > 0 ? -1.2 : Math.PI + 1.2 - Math.PI * 0.55); head.add(sc); smileCorners.push(sc);
+});
+// tongue (pants)
+var tongue = new THREE.Group();
+var tg = M(new THREE.SphereGeometry(0.12, 28, 20), mat(0xEF8A9E, 0.45));
+tg.scale.set(0.95, 2.0, 0.42); tg.position.y = -0.18; tongue.add(tg);
+var tgl = M(new THREE.CylinderGeometry(0.008, 0.008, 0.28, 6), mat(0xC9647A, 0.5));
+tgl.position.set(0, -0.16, 0.05); tongue.add(tgl);
+tongue.position.set(0, -0.32, 0.64); tongue.rotation.x = 0.28;
+if(grin){ tongue.scale.set(1.15, 0.42, 1); tongue.position.set(0, -0.3, 0.6); tongue.rotation.x = 1.15; }
+var tongueLen = cfg.tongueLen || 1;
+if(!grin){ tongue.scale.y = tongueLen; tongue.position.y = -0.32 + (1 - tongueLen) * 0.03; }
+head.add(tongue);
+if(cfg.fangs && !grin){
+  [-1, 1].forEach(function(s){
+    var fang = M(new THREE.ConeGeometry(0.02, 0.075, 12), mat(0xFFFDF5, 0.3));
+    fang.rotation.x = Math.PI; fang.position.set(s * 0.115, -0.315, 0.665); head.add(fang);
+  });
+}
+// closed mouth: no tongue or teeth, chin tucked under the muzzle, soft smile line
+var closed = cfg.mouth === 'closed';
+if(closed){
+  mouth.visible = false; tongue.visible = false;
+  smileCorners.forEach(function(sc){ sc.visible = false; });
+  jaw.position.set(0, -0.3, 0.44); jaw.scale.set(0.95, 0.9, 0.95);
+  var lipLine = M(new THREE.TorusGeometry(0.13, 0.011, 8, 40, Math.PI), mat(0x2B2222, 0.6));
+  lipLine.scale.set(1, 0.35, 1); lipLine.rotation.set(-0.15, 0, Math.PI);
+  lipLine.position.set(0, -0.2, 0.725); head.add(lipLine);
+}
+
+// eyes (almond, dark brown, in the ginger mask)
+[-1, 1].forEach(function(s){
+  var ex = s * 0.21, ey = 0.07, ez = surfZ(ex, ey);
+  var eye = M(new THREE.SphereGeometry(0.068, 20, 14), mat(0x2E1C12, 0.25));
+  eye.scale.set(1.3, 0.8, 0.55); eye.position.set(ex, ey, ez - 0.01);
+  eye.rotation.z = s * -0.25; eye.rotation.y = s * 0.35; head.add(eye);
+  var hl = M(new THREE.SphereGeometry(0.018, 8, 6), mat(0xFFFFFF, 0.1));
+  hl.position.set(ex + 0.025, ey + 0.025, ez + 0.03); head.add(hl);
+});
+
+// ears: pointed, upright, ginger with pale inner fur
+[-1, 1].forEach(function(s){
+  var ear = new THREE.Group();
+  var outer = M(new THREE.ConeGeometry(0.21, 0.5, 32), mat(cfg.earColor || 0xCC7A3E, 0.8));
+  outer.scale.set(1, 1, 0.48); ear.add(outer);
+  var inner = M(new THREE.ConeGeometry(0.13, 0.34, 32), mat(cfg.earInner || 0xF4E4D4, 0.85));
+  inner.scale.set(1, 1, 0.3); inner.position.set(0, -0.05, 0.05); ear.add(inner);
+  ear.position.set(s * 0.29, 0.5, -0.04);
+  ear.rotation.set(-0.12, 0, s * -0.3);
+  head.add(ear);
+});
+
+
+// ── Favourite toys ──
+if(cfg.props) cfg.props(dog, {M:M, mat:mat, blob:blob});
+
+dog.position.y = 0.0;
+dog.rotation.y = cfg.rot || 0.12;
+
+// ── Age ──
+(function(){
+  var el = document.getElementById(cfg.ageEl); if(!el) return;
+  var now = new Date(), months = (now.getFullYear() - cfg.born[0]) * 12 + (now.getMonth() - cfg.born[1]);
+  var y = Math.floor(months / 12);
+  if(y > 0) el.textContent = '· ' + y + (y > 1 ? ' yrs' : ' yr');
+})();
+
+function anim(t){
+  if(reduce) return;
+    if(!grin && !closed) tongue.scale.y = tongueLen * (1 + Math.sin(t * 9) * 0.07);  // panting
+    torso.scale.y = 1 + Math.sin(t * 9) * 0.012;
+    ruff.position.y = 1.6 + Math.sin(t * 9) * 0.008;
+    head.rotation.z = Math.sin(t * 0.9) * 0.07;            // curious head tilt
+    head.rotation.x = Math.sin(t * 0.6) * 0.03;
+    tail.rotation.y = Math.sin(t * 4.2) * 0.18;            // happy wag
+    tail.rotation.z = Math.sin(t * 4.2) * 0.06;
+}
+if(emb) return {group:dog, update:anim};
+
+// ── Sizing ──
+function resize(){
+  var w = cv.clientWidth, h = cv.clientHeight;
+  if(!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.position.z = w / h < 0.9 ? 10.8 : 9.2;
+  camera.updateProjectionMatrix();
+}
+resize();
+window.addEventListener('resize', resize);
+
+// ── Drag to spin ──
+var still = /[?&]still/.test(location.search);
+var targetRot = cfg.rot || 0.12, dragging = false, lastX = 0, idle = 0;
+cv.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; cv.setPointerCapture(e.pointerId); cv.classList.add('grabbing'); });
+cv.addEventListener('pointermove', function(e){
+  if(!dragging) return;
+  targetRot += (e.clientX - lastX) * 0.012; lastX = e.clientX; idle = 0;
+});
+function endDrag(){ dragging = false; cv.classList.remove('grabbing'); }
+cv.addEventListener('pointerup', endDrag);
+cv.addEventListener('pointercancel', endDrag);
+
+// ── Animate only while visible ──
+var visible = true;
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, {threshold:0}).observe(cv);
+}
+var t = 0;
+function loop(){
+  requestAnimationFrame(loop);
+  if(!visible) return;
+  t += 0.016; idle += 0.016;
+  if(!dragging && idle > 2.5 && !reduce && !still) targetRot += 0.0035;
+  dog.rotation.y += (targetRot - dog.rotation.y) * 0.12;
+  anim(t);
+  renderer.render(scene, camera);
+}
+loop();
+}
+
+var TAE_CFG = ({
+  canvas:'taeCanvas', ageEl:'taeAge', born:[2020, 3], rot:0.12,
+  props:function(dog, h){ var M = h.M, mat = h.mat, blob = h.blob;
+// ── Favourite toys: coconut shell + gallon jug ──
+var coco = new THREE.Group();
+var shellOut = blob(0.3, 1, 1, 1, {seg:32, fur:0.025});
+shellOut.material = mat(0x7A4A28, 0.9);
+shellOut.geometry = new THREE.SphereGeometry(0.3, 32, 16, 0, Math.PI*2, Math.PI/2, Math.PI/2);
+coco.add(shellOut);
+var shellIn = M(new THREE.SphereGeometry(0.27, 32, 16, 0, Math.PI*2, Math.PI/2, Math.PI/2), new THREE.MeshStandardMaterial({color:0xF3EADB, roughness:0.85, side:THREE.BackSide}));
+coco.add(shellIn);
+var rimC = M(new THREE.TorusGeometry(0.285, 0.018, 8, 40), mat(0x5E3519, 0.9));
+rimC.rotation.x = Math.PI/2; coco.add(rimC);
+for(var f = 0; f < 10; f++){ // coir fibres
+  var fb = M(new THREE.CylinderGeometry(0.006, 0.006, 0.12, 4), mat(0x5E3519, 0.9));
+  var fa = f * 0.63;
+  fb.position.set(Math.cos(fa) * 0.27, -0.1 - (f % 3) * 0.04, Math.sin(fa) * 0.27);
+  fb.rotation.set(Math.sin(fa) * 0.8, 0, -Math.cos(fa) * 0.8); coco.add(fb);
+}
+coco.position.set(1.25, 0.24, 0.55); coco.rotation.set(0.35, 0, -0.25);
+dog.add(coco);
+
+var jug = new THREE.Group();
+var jugMat = new THREE.MeshStandardMaterial({color:0xE6F0F6, roughness:0.35, metalness:0, transparent:true, opacity:0.92});
+var jb = M(new THREE.BoxGeometry(0.46, 0.6, 0.36, 1, 1, 1), jugMat);
+jb.position.y = 0.3; jug.add(jb);
+[[0.23,0.18],[-0.23,0.18]].forEach(function(e){ // rounded edges
+  var ed = M(new THREE.CylinderGeometry(0.18, 0.18, 0.6, 20), jugMat);
+  ed.scale.set(0.35, 1, 1); ed.position.set(e[0], 0.3, 0); jug.add(ed);
+});
+var sh = M(new THREE.CylinderGeometry(0.2, 0.23, 0.12, 24), jugMat);
+sh.scale.set(1.15, 1, 0.8); sh.position.y = 0.64; jug.add(sh);
+var neck = M(new THREE.CylinderGeometry(0.075, 0.075, 0.1, 20), jugMat);
+neck.position.set(0.1, 0.74, 0); jug.add(neck);
+var cap = M(new THREE.CylinderGeometry(0.09, 0.09, 0.08, 20), mat(0x2F6FD6, 0.5));
+cap.position.set(0.1, 0.82, 0); jug.add(cap);
+var hdl = M(new THREE.TorusGeometry(0.11, 0.035, 10, 24, Math.PI), jugMat);
+hdl.position.set(-0.1, 0.66, 0); hdl.rotation.z = 0; jug.add(hdl);
+var label = M(new THREE.BoxGeometry(0.3, 0.2, 0.01), mat(0xF7C873, 0.7));
+label.position.set(0, 0.32, 0.185); jug.add(label);
+jug.position.set(-1.35, 0, 0.5); jug.rotation.y = 0.5; jug.rotation.z = 0.06;
+dog.add(jug);
+
+}
+});
+makeBangkaew(TAE_CFG);
+
+var HENG_CFG = ({
+  canvas:'hengCanvas', ageEl:'hengAge', born:[2020, 2], rot:-0.18, tongueLen:0.55, fangs:true, noseSpot:true, earInner:0xCDBFB6, earColor:0xC27A44,
+  // Heng: ginger head with only a faint pale streak, smoky grey muzzle
+  headPaint:function(x, y, z){
+    var cap = ss(-0.42, -0.1, y + 0.35 * Math.abs(x) - 0.2 * Math.max(0, z - 0.7));
+    var streak = 0.45 * (1 - ss(0.05, 0.13, Math.abs(x))) * ss(0.1, 0.4, z) * ss(0.55, 0.1, y);
+    return cap * (1 - streak);
+  },
+  muzzleColor:(function(){
+    var BROWN = new THREE.Color(0x8E6A52), GREY = new THREE.Color(0x857E7A);
+    return function(x, y, z, c){
+      c.lerp(BROWN, 0.9 * ss(-0.55, 0.15, y * 0.6 + z * 0.55));   // brown around the nose
+      c.lerp(GREY, 0.45 * ss(0.65, 0.95, z) * ss(-0.3, 0.2, y));   // a touch of grey at the tip
+    };
+  })(),
+  // big ginger saddle over the shoulders and back
+  torsoPaint:function(x, y, z){ return ss(-0.1, 0.35, -z * 0.85 + y * 0.35 + Math.abs(x) * 0.25); },
+  haunchL:function(x, y, z){ return ss(-0.1, 0.4, y * 0.55 - z * 0.45 - x * 0.3); },
+  haunchR:function(x, y, z){ return ss(-0.1, 0.4, y * 0.55 - z * 0.45 + x * 0.3); },
+  props:function(dog, h){ var M = h.M, mat = h.mat;
+  // ball: two-tone rubber ball with a seam
+  var ball = new THREE.Group();
+  var bTop = M(new THREE.SphereGeometry(0.24, 32, 16, 0, Math.PI*2, 0, Math.PI/2), mat(0xE5484D, 0.45));
+  var bBot = M(new THREE.SphereGeometry(0.24, 32, 16, 0, Math.PI*2, Math.PI/2, Math.PI/2), mat(0xF4C542, 0.45));
+  var seam = M(new THREE.TorusGeometry(0.242, 0.016, 8, 48), mat(0xFFFFFF, 0.4));
+  seam.rotation.x = Math.PI/2;
+  var star = M(new THREE.CircleGeometry(0.07, 5), mat(0xFFFFFF, 0.4));
+  star.position.set(0, 0.12, 0.205); star.rotation.x = -0.6;
+  ball.add(bTop, bBot, seam, star);
+  ball.position.set(1.3, 0.24, 0.5); ball.rotation.set(0.4, 0.3, 0.5);
+  dog.add(ball);
+  // leaves: a few fallen leaves with a midrib
+  function leaf(col, x, z, ry, sc){
+    var shape = new THREE.Shape();
+    shape.moveTo(0, -0.3); shape.quadraticCurveTo(0.2, -0.05, 0, 0.32); shape.quadraticCurveTo(-0.2, -0.05, 0, -0.3);
+    var lf = M(new THREE.ExtrudeGeometry(shape, {depth:0.015, bevelEnabled:true, bevelThickness:0.01, bevelSize:0.012, bevelSegments:2}), mat(col, 0.7));
+    var rib = M(new THREE.CylinderGeometry(0.008, 0.008, 0.62, 6), mat(0x3E6B2A, 0.7));
+    rib.position.z = 0.03; var stem = M(new THREE.CylinderGeometry(0.01, 0.01, 0.12, 6), mat(0x6B4A2A, 0.8));
+    stem.position.set(0, -0.36, 0.01);
+    var g = new THREE.Group(); g.add(lf, rib, stem);
+    g.rotation.set(-Math.PI/2 + 0.08, 0, ry); g.position.set(x, 0.03, z); g.scale.setScalar(sc);
+    dog.add(g);
+  }
+  leaf(0x6DB65B, -1.3, 0.45, 0.6, 1.1);
+  leaf(0xA7C957, -1.05, 0.8, -0.5, 0.9);
+  leaf(0xE0A33A, -1.6, 0.05, 1.6, 0.85);
+}
+});
+makeBangkaew(HENG_CFG);
+
+// ── Smooth one-piece bird body: a sculpted tube along a spine ───────
+function bHash(x, y){ var h = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return h - Math.floor(h); }
+function bNoise(x, y){
+  var xi = Math.floor(x), yi = Math.floor(y), u = x - xi, v = y - yi;
+  u = u*u*(3-2*u); v = v*v*(3-2*v);
+  var a = bHash(xi, yi), b = bHash(xi+1, yi), c = bHash(xi, yi+1), d = bHash(xi+1, yi+1);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+// pts: spine points (tail end -> head end); ctrl: [t, width, height] radius profile
+// o.paint(t, cosA, sinA, color) may recolour a vertex and return a 0..1 "raise" amount
+function birdTube(pts, ctrl, o){
+  o = o || {};
+  var curve = new THREE.CatmullRomCurve3(pts.map(function(q){ return new THREE.Vector3(q[0], q[1], q[2]); }), false, 'centripetal');
+  var TS = o.ts || 150, RS = o.rs || 64, X = new THREE.Vector3(1, 0, 0);
+  var e0 = o.ends ? o.ends[0] : 0.06, e1 = o.ends ? o.ends[1] : 0.08;
+  function prof(t){
+    var i = 0; while(i < ctrl.length - 2 && t > ctrl[i + 1][0]) i++;
+    var a = ctrl[i], b = ctrl[i + 1], u = Math.max(0, Math.min(1, (t - a[0]) / (b[0] - a[0])));
+    u = u * u * (3 - 2 * u);
+    var k = 1;
+    if(t < e0) k = Math.sqrt(Math.max(0, 1 - Math.pow((e0 - t) / e0, 2)));
+    if(t > 1 - e1) k = Math.sqrt(Math.max(0, 1 - Math.pow((t - (1 - e1)) / e1, 2)));
+    return [(a[1] + (b[1] - a[1]) * u) * k, (a[2] + (b[2] - a[2]) * u) * k];
+  }
+  var P = new THREE.Vector3(), T = new THREE.Vector3(), U = new THREE.Vector3(), S = new THREE.Vector3();
+  function frame(t){
+    curve.getPointAt(t, P); curve.getTangentAt(t, T);
+    U.crossVectors(T, X).normalize(); S.crossVectors(U, T).normalize();
+  }
+  var c = new THREE.Color();
+  function point(t, ca, sa, lift, out){
+    frame(t); var r = prof(t), raise = 0;
+    c.setRGB(1, 1, 1);
+    if(o.paint) raise = o.paint(t, ca, sa, c) || 0;
+    var n = o.fur ? o.fur * (bNoise(t * 60, Math.atan2(sa, ca) * 5) - 0.5) : 0;
+    var g = 1 + n + raise * (o.raise || 0.06) + (lift || 0);
+    var h = r[1] * (sa < 0 ? (o.belly || 1) : 1);
+    return (out || new THREE.Vector3()).copy(P).addScaledVector(S, ca * r[0] * g).addScaledVector(U, sa * h * g);
+  }
+  var pos = [], col = [], idx = [], v = new THREE.Vector3();
+  for(var i = 0; i <= TS; i++){
+    var t = i / TS;
+    for(var j = 0; j <= RS; j++){
+      var a = j / RS * Math.PI * 2;
+      point(t, Math.cos(a), Math.sin(a), 0, v);
+      pos.push(v.x, v.y, v.z); col.push(c.r, c.g, c.b);
+    }
+  }
+  for(i = 0; i < TS; i++) for(j = 0; j < RS; j++){
+    var A = i * (RS + 1) + j, B = A + RS + 1;
+    idx.push(A, A + 1, B, B, A + 1, B + 1);
+  }
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  geo.setIndex(idx); geo.computeVertexNormals();
+  var m = new THREE.Mesh(geo, o.material || new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.6, metalness:0}));
+  m.castShadow = true; m.receiveShadow = true;
+  return {mesh:m, curve:curve, surf:function(t, ca, sa, lift){ return point(t, ca, sa, lift); }};
+}
+function aimAlong(obj, dir){ obj.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().normalize()); }
+
+// ── Hill myna (นกขุนทอง) clay 3D: Thong + birdhouse + fruit ─────────
+function makeMyna(cfg){
+'use strict';
+var emb = cfg.embed;
+var cv = emb ? null : document.getElementById(cfg.canvas);
+if((!cv && !emb) || !window.THREE) return;
+var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function mat(col, rough){ return new THREE.MeshStandardMaterial({color:col, roughness:rough==null?0.7:rough, metalness:0}); }
+function M(geo, m){ var o = new THREE.Mesh(geo, m); o.castShadow = true; o.receiveShadow = true; return o; }
+function egg(r, sx, sy, sz, m, seg){ var o = M(new THREE.SphereGeometry(r, seg || 40, Math.round((seg || 40) * 0.75)), m); o.scale.set(sx, sy, sz); return o; }
+
+// glossy black feathers with a blue-violet sheen
+var FEATHER = new THREE.MeshPhysicalMaterial({color:0x15131C, roughness:0.4, metalness:0.12, clearcoat:0.7, clearcoatRoughness:0.35});
+var WING = new THREE.MeshPhysicalMaterial({color:0x1B1D30, roughness:0.38, metalness:0.15, clearcoat:0.7, clearcoatRoughness:0.3});
+var YELLOW = mat(0xF2BE2C, 0.5), ORANGE = mat(0xEE5F35, 0.4), LEG = mat(0xE6A33C, 0.55);
+
+// ── Scene ──
+if(!emb){
+var renderer = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
+camera.position.set(0, 2.0, 8.6);
+camera.lookAt(0, 1.0, 0);
+scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xA79A86, 0.6));
+var key = new THREE.DirectionalLight(0xFFF3E2, 0.9);
+key.position.set(3.5, 6, 5); key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 6;
+key.shadow.camera.left = -3.5; key.shadow.camera.right = 3.5; key.shadow.camera.top = 4; key.shadow.camera.bottom = -2;
+scene.add(key);
+var rim = new THREE.DirectionalLight(0x9D8CFF, 0.9); rim.position.set(-4, 3, -3); scene.add(rim);
+var fillL = new THREE.DirectionalLight(0xFFE9D6, 0.25); fillL.position.set(-3, 1, 5); scene.add(fillL);
+
+}
+var world = new THREE.Group(); (emb || scene).add(world);
+
+// wooden floor disc
+if(!emb){
+var base = M(new THREE.CylinderGeometry(1.95, 2.0, 0.22, 48), mat(0xC9A27A, 0.85));
+base.scale.set(1.12, 1, 0.74); base.position.y = -0.11; world.add(base);
+for(var pl = -2; pl <= 2; pl++){ // plank seams
+  var seam = M(new THREE.BoxGeometry(0.012, 0.005, 2.6), mat(0xA9825A, 0.9));
+  seam.position.set(pl * 0.7, 0.002, 0); seam.scale.z = Math.sqrt(Math.max(0.05, 1 - (pl * 0.7 / 2.2) * (pl * 0.7 / 2.2))) * 0.95; world.add(seam);
+}
+}
+
+// ── Birdhouse (plywood, gable roof, arched door, ramp) ──
+var PLY = mat(0xEBD5B3, 0.8), PLY_EDGE = mat(0xD9BD96, 0.85);
+var house = new THREE.Group();
+var hs = new THREE.Shape();
+hs.moveTo(-0.65, 0); hs.lineTo(0.65, 0); hs.lineTo(0.65, 0.95); hs.lineTo(0, 1.4); hs.lineTo(-0.65, 0.95); hs.closePath();
+var body = M(new THREE.ExtrudeGeometry(hs, {depth:1.1, bevelEnabled:false}), PLY);
+body.position.z = -0.55; house.add(body);
+var arch = new THREE.Shape();
+arch.moveTo(-0.27, 0.06); arch.lineTo(0.27, 0.06); arch.lineTo(0.27, 0.55); arch.absarc(0, 0.55, 0.27, 0, Math.PI, false); arch.closePath();
+var door = M(new THREE.ShapeGeometry(arch, 24), mat(0x5E4530, 0.9));
+door.position.z = 0.552; house.add(door);
+var trim = M(new THREE.BoxGeometry(1.32, 0.04, 0.04), PLY_EDGE); trim.position.set(0, 0.02, 0.56); house.add(trim);
+[-1, 1].forEach(function(s){
+  var roof = M(new THREE.BoxGeometry(0.98, 0.06, 1.38), PLY);
+  roof.rotation.z = s * -0.606; roof.position.set(s * 0.355, 1.205, 0.02); house.add(roof);
+  var edge = M(new THREE.BoxGeometry(0.98, 0.065, 0.02), PLY_EDGE);
+  edge.rotation.z = s * -0.606; edge.position.set(s * 0.355, 1.205, 0.715); house.add(edge);
+});
+var ramp = M(new THREE.BoxGeometry(0.95, 0.05, 0.75), PLY); ramp.position.set(0, 0.06, 0.92); ramp.rotation.x = 0.1; house.add(ramp);
+house.position.set(-1.4, 0, -0.6); house.rotation.y = 0.42; house.scale.setScalar(0.85);
+world.add(house);
+
+// ── Thong: one smooth glossy body from rump to crown ──
+var bird = new THREE.Group();
+// legs + feet
+[-1, 1].forEach(function(s){
+  var leg = M(new THREE.CylinderGeometry(0.034, 0.04, 0.46, 12), LEG);
+  leg.position.set(s * 0.14, 0.26, -0.04); leg.rotation.z = s * 0.06; bird.add(leg);
+  [-0.45, 0, 0.45, Math.PI].forEach(function(a, i){
+    var len = i === 3 ? 0.13 : 0.2;
+    var toe = M(new THREE.CylinderGeometry(0.02, 0.024, len, 8), LEG);
+    toe.rotation.x = Math.PI / 2; toe.rotation.y = a;
+    toe.position.set(s * 0.14 + Math.sin(a) * len / 2, 0.03, 0.04 + Math.cos(a) * len / 2); bird.add(toe);
+    var claw = M(new THREE.ConeGeometry(0.016, 0.05, 8), mat(0x3A3530, 0.5));
+    claw.rotation.x = Math.PI / 2; claw.rotation.y = a;
+    claw.position.set(s * 0.14 + Math.sin(a) * (len + 0.02), 0.025, 0.04 + Math.cos(a) * (len + 0.02)); bird.add(claw);
+  });
+});
+var GLOSS = new THREE.MeshPhysicalMaterial({vertexColors:true, roughness:0.38, metalness:0.1, clearcoat:0.7, clearcoatRoughness:0.3});
+var C_BLACK = new THREE.Color(0x141219), C_SHEEN = new THREE.Color(0x24284A), C_YEL = new THREE.Color(0xF2BE2C);
+var body = birdTube(
+  [[0, 0.4, -0.5], [0, 0.66, -0.3], [0, 0.96, -0.1], [0, 1.24, 0.04], [0, 1.44, 0.14], [0, 1.62, 0.22], [0, 1.66, 0.44]],
+  [[0, 0.12, 0.12], [0.1, 0.24, 0.26], [0.3, 0.32, 0.37], [0.5, 0.29, 0.32], [0.66, 0.235, 0.245], [0.8, 0.285, 0.285], [0.93, 0.23, 0.215], [1, 0.17, 0.16]],
+  {belly:1.08, fur:0.012, raise:0.09, material:GLOSS, ends:[0.06, 0.07], paint:function(t, ca, sa, c){
+    c.copy(C_BLACK).lerp(C_SHEEN, 0.45 * ss(0.25, 0.5, t) * (1 - ss(0.6, 0.75, t)) * Math.max(0, sa * 0.6 + Math.abs(ca) * 0.4));
+    // golden wattle: from under the eye, sweeping back and up to the nape
+    var ap = Math.atan2(sa, Math.abs(ca));
+    var tc = 0.872 - 0.13 * ((ap + 0.6) / 1.9);
+    var band = (1 - ss(0.014, 0.03, Math.abs(t - tc))) * ss(-0.85, -0.6, ap) * (1 - ss(1.2, 1.4, ap));
+    // bare yellow skin patch just below/behind the eye
+    var patch = 1 - ss(0.7, 1, Math.hypot((t - 0.88) / 0.03, (ap + 0.2) / 0.28));
+    var y = Math.max(band, patch * 0.9);
+    c.lerp(C_YEL, y);
+    return y;
+  }});
+bird.add(body.mesh);
+// eyes
+[-1, 1].forEach(function(s){
+  var e = body.surf(0.89, s * Math.cos(0.32), Math.sin(0.32), -0.02);
+  var eye = M(new THREE.SphereGeometry(0.048, 20, 14), mat(0x24160E, 0.15)); eye.position.copy(e); bird.add(eye);
+  var hl = M(new THREE.SphereGeometry(0.015, 8, 6), mat(0xFFFFFF, 0.1));
+  hl.position.copy(e).add(new THREE.Vector3(s * 0.03, 0.02, 0.02)); bird.add(hl);
+  // small fleshy lappet hanging under the eye
+  var lp = body.surf(0.86, s * Math.cos(-0.85), Math.sin(-0.85), 0.02);
+  var lap = M(new THREE.SphereGeometry(0.05, 16, 12), YELLOW); lap.scale.set(0.55, 1.25, 0.9); lap.position.copy(lp); bird.add(lap);
+});
+// beak: sturdy, orange-red, slightly down-curved
+var bBase = body.surf(0.975, 0, 0.05, -0.05), bDir = body.curve.getTangentAt(0.99).clone().add(new THREE.Vector3(0, -0.28, 0)).normalize();
+var beak = new THREE.Group(); beak.position.copy(bBase); aimAlong(beak, bDir);
+var b1 = M(new THREE.CylinderGeometry(0.0, 0.12, 0.44, 32), ORANGE); b1.position.y = 0.2; b1.scale.set(1, 1, 0.82); beak.add(b1);
+var b2 = M(new THREE.CylinderGeometry(0.0, 0.07, 0.18, 32), mat(0xF28A3A, 0.4)); b2.position.y = 0.33; b2.scale.set(1, 1, 0.82); beak.add(b2);
+bird.add(beak);
+// wings: smooth folded feather blades, bluish black, small white patch
+var wings = [];
+[-1, 1].forEach(function(s){
+  var C_W = new THREE.Color(0x191B2C), C_WHITE = new THREE.Color(0xF4F2EE);
+  var w = birdTube([[s * 0.28, 1.25, 0.02], [s * 0.34, 0.98, -0.16], [s * 0.29, 0.68, -0.42], [s * 0.12, 0.36, -0.82]],
+    [[0, 0.05, 0.17], [0.25, 0.075, 0.24], [0.6, 0.055, 0.17], [1, 0.03, 0.06]],
+    {ts:80, rs:40, ends:[0.08, 0.1], material:GLOSS, paint:function(t, ca, sa, c){
+      c.copy(C_W);
+      var wp = (1 - ss(0.025, 0.05, Math.abs(t - 0.4))) * ss(-0.1, -0.5, sa) * ss(0, 0.4, ca * s);
+      c.lerp(C_WHITE, wp); return 0;
+    }});
+  bird.add(w.mesh); wings.push(w.mesh);
+});
+// tail: flat, tapered, pivoting at the rump
+var tail = new THREE.Group(); tail.position.set(0, 0.5, -0.46); bird.add(tail);
+var tl = birdTube([[0, 0, 0], [0, -0.14, -0.3], [0, -0.26, -0.62], [0, -0.33, -0.92]], [[0, 0.13, 0.08], [0.45, 0.16, 0.05], [1, 0.14, 0.03]],
+  {ts:50, rs:32, ends:[0.02, 0.12], material:GLOSS, paint:function(t, ca, sa, c){ c.copy(C_BLACK); return 0; }});
+tail.add(tl.mesh);
+
+bird.position.set(0.5, 0, 0.4); bird.rotation.y = 0.95;
+world.add(bird);
+
+// ── Fruit: orange, banana, coconut piece ──
+var orange = new THREE.Group();
+orange.add(egg(0.22, 1, 0.94, 1, mat(0xF39A2B, 0.55), 40));
+var stem = M(new THREE.CylinderGeometry(0.012, 0.012, 0.05, 6), mat(0x6B4A2A, 0.8)); stem.position.y = 0.22; orange.add(stem);
+var lf = egg(0.08, 1, 0.18, 2, mat(0x4E9A4A, 0.6)); lf.position.set(0.06, 0.225, 0.06); lf.rotation.y = 0.8; orange.add(lf);
+orange.position.set(1.5, 0.21, 0.35); world.add(orange);
+var orange2 = egg(0.17, 1, 0.94, 1, mat(0xF0902A, 0.55)); orange2.position.set(1.72, 0.16, -0.05); world.add(orange2);
+
+var bananaCurve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(-0.38, 0.09, 0), new THREE.Vector3(0, 0.09, 0.32), new THREE.Vector3(0.38, 0.12, 0));
+var banana = new THREE.Group();
+banana.add(M(new THREE.TubeGeometry(bananaCurve, 32, 0.085, 7, false), mat(0xF5D547, 0.55)));
+[0, 1].forEach(function(e){
+  var p = bananaCurve.getPoint(e), end = M(new THREE.SphereGeometry(0.05, 10, 8), mat(0x5B4326, 0.8));
+  end.position.copy(p); banana.add(end);
+});
+banana.position.set(0.95, 0, 1.05); banana.rotation.y = 0.35; world.add(banana);
+
+var coco = new THREE.Group();
+coco.add(M(new THREE.SphereGeometry(0.2, 28, 14, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), mat(0x7A4A28, 0.9)));
+coco.add(M(new THREE.SphereGeometry(0.175, 28, 14, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), new THREE.MeshStandardMaterial({color:0xF7F1E6, roughness:0.8, side:THREE.BackSide})));
+var crim = M(new THREE.TorusGeometry(0.188, 0.014, 8, 36), mat(0xF7F1E6, 0.8)); crim.rotation.x = Math.PI / 2; coco.add(crim);
+coco.position.set(1.85, 0.2, 0.55); coco.rotation.set(0.3, 0, -0.35); world.add(coco);
+
+world.rotation.y = cfg.rot || 0.1;
+world.scale.setScalar(0.95);
+
+// ── Age ──
+(function(){
+  var el = document.getElementById(cfg.ageEl); if(!el) return;
+  var y = new Date().getFullYear() - cfg.bornYear;
+  if(y > 0) el.textContent = '· ' + y + (y > 1 ? ' yrs' : ' yr');
+})();
+
+function anim(t){
+  if(reduce) return;
+    // curious myna: looks around and cocks its head
+    bird.rotation.y = 1.15 + Math.sin(t * 0.7) * 0.18;        // looks around
+    bird.rotation.z = Math.sin(t * 1.3) * 0.03;
+    bird.position.y = Math.abs(Math.sin(t * 1.6)) * 0.015;
+    tail.rotation.x = -Math.max(0, Math.sin(t * 6)) * 0.12 * Math.max(0, Math.sin(t * 0.8));
+}
+if(emb) return {group:world, update:anim};
+
+// ── Sizing, drag, loop ──
+function resize(){
+  var w = cv.clientWidth, h = cv.clientHeight; if(!w || !h) return;
+  renderer.setSize(w, h, false); camera.aspect = w / h;
+  camera.position.z = w / h < 0.9 ? 10.6 : 9.0; camera.updateProjectionMatrix();
+}
+resize(); window.addEventListener('resize', resize);
+var still = /[?&]still/.test(location.search);
+var targetRot = cfg.rot || 0.1, dragging = false, lastX = 0, idle = 0;
+cv.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; cv.setPointerCapture(e.pointerId); cv.classList.add('grabbing'); });
+cv.addEventListener('pointermove', function(e){ if(!dragging) return; targetRot += (e.clientX - lastX) * 0.012; lastX = e.clientX; idle = 0; });
+function endDrag(){ dragging = false; cv.classList.remove('grabbing'); }
+cv.addEventListener('pointerup', endDrag); cv.addEventListener('pointercancel', endDrag);
+var visible = true;
+if('IntersectionObserver' in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, {threshold:0}).observe(cv);
+var t = 0;
+function loop(){
+  requestAnimationFrame(loop);
+  if(!visible) return;
+  t += 0.016; idle += 0.016;
+  if(!dragging && idle > 2.5 && !reduce && !still) targetRot += 0.0035;
+  world.rotation.y += (targetRot - world.rotation.y) * 0.12;
+  anim(t);
+  renderer.render(scene, camera);
+}
+loop();
+}
+
+var THONG_CFG = {canvas:'thongCanvas', ageEl:'thongAge', bornYear:2016, rot:0.05};
+makeMyna(THONG_CFG);
+
+// ── Cockatiel (นกค็อกคาเทล) clay 3D: Giraffe on a nest box ──────────
+function makeCockatiel(cfg){
+'use strict';
+var emb = cfg.embed;
+var cv = emb ? null : document.getElementById(cfg.canvas);
+if((!cv && !emb) || !window.THREE) return;
+var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function mat(col, rough){ return new THREE.MeshStandardMaterial({color:col, roughness:rough==null?0.7:rough, metalness:0}); }
+function M(geo, m){ var o = new THREE.Mesh(geo, m); o.castShadow = true; o.receiveShadow = true; return o; }
+function egg(r, sx, sy, sz, m, seg){ var o = M(new THREE.SphereGeometry(r, seg || 40, Math.round((seg || 40) * 0.75)), m); o.scale.set(sx, sy, sz); return o; }
+
+var GREY = mat(0x5D5C62, 0.75), GREY_D = mat(0x48474D, 0.75), PALE = mat(0xE4E0D4, 0.8),
+    YEL = mat(0xF3DD6B, 0.65), YEL_PALE = mat(0xF6E9A6, 0.7), PEARL = mat(0xEDE3A0, 0.7),
+    CHEEK = mat(0xF0662C, 0.55), BEAK = mat(0x9A948E, 0.45), FOOT = mat(0xD9A3A0, 0.6);
+
+// ── Scene ──
+if(!emb){
+var renderer = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
+camera.position.set(0, 2.1, 8.6);
+camera.lookAt(0, 1.2, 0);
+scene.add(new THREE.HemisphereLight(0xFFFFFF, 0xB0A07E, 0.62));
+var key = new THREE.DirectionalLight(0xFFF3E2, 0.9);
+key.position.set(3.5, 6, 5); key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 6;
+key.shadow.camera.left = -3.5; key.shadow.camera.right = 3.5; key.shadow.camera.top = 4; key.shadow.camera.bottom = -2;
+scene.add(key);
+var rim = new THREE.DirectionalLight(0xFFE7A8, 0.6); rim.position.set(-4, 3, -3); scene.add(rim);
+var fillL = new THREE.DirectionalLight(0xFFE9D6, 0.25); fillL.position.set(-3, 1, 5); scene.add(fillL);
+
+}
+var world = new THREE.Group(); (emb || scene).add(world);
+if(!emb){
+var base = M(new THREE.CylinderGeometry(1.95, 2.0, 0.22, 48), mat(0xBFA07C, 0.85));
+base.scale.set(1.12, 1, 0.74); base.position.y = -0.11; world.add(base);
+}
+
+// ── Weathered wooden nest box with a round entrance ──
+var box = new THREE.Group();
+var WOOD = mat(0x9A7A5C, 0.9), LID = mat(0x77716A, 0.92);
+var bx = M(new THREE.BoxGeometry(1.5, 0.95, 1.05), WOOD); bx.position.y = 0.475; box.add(bx);
+var lid = M(new THREE.BoxGeometry(1.6, 0.07, 1.15), LID); lid.position.y = 0.985; box.add(lid);
+var hole = M(new THREE.CircleGeometry(0.2, 32), mat(0x2B2119, 0.95)); hole.position.set(-0.3, 0.45, 0.527); box.add(hole);
+var holeRim = M(new THREE.TorusGeometry(0.2, 0.025, 8, 32), mat(0x7E6248, 0.9)); holeRim.position.copy(hole.position); box.add(holeRim);
+for(var g = 0; g < 4; g++){ // grain lines
+  var gr = M(new THREE.BoxGeometry(1.48, 0.008, 0.005), mat(0x82654A, 0.9)); gr.position.set(0, 0.15 + g * 0.22, 0.528); box.add(gr);
+}
+box.position.set(-0.15, 0, -0.1); box.rotation.y = 0.15;
+world.add(box);
+
+// ── Giraffe: one smooth body, painted like a pearl cockatiel ──
+var bird = new THREE.Group();
+[-1, 1].forEach(function(s){
+  var leg = M(new THREE.CylinderGeometry(0.03, 0.035, 0.14, 10), FOOT); leg.position.set(s * 0.1, 0.07, 0.08); bird.add(leg);
+  [-0.4, 0.4, Math.PI - 0.3, Math.PI + 0.3].forEach(function(a){
+    var len = 0.13, toe = M(new THREE.CylinderGeometry(0.016, 0.018, len, 8), FOOT);
+    toe.rotation.x = Math.PI / 2; toe.rotation.y = a;
+    toe.position.set(s * 0.1 + Math.sin(a) * len / 2, 0.015, 0.08 + Math.cos(a) * len / 2); bird.add(toe);
+  });
+});
+var SOFT = new THREE.MeshStandardMaterial({vertexColors:true, roughness:0.72, metalness:0});
+var C_GREY = new THREE.Color(0x5E5D63), C_GREY_D = new THREE.Color(0x49484E), C_PALE = new THREE.Color(0xE6E1D2),
+    C_YEL = new THREE.Color(0xF3DC68), C_YEL_P = new THREE.Color(0xF7EBAE), C_NAPE = new THREE.Color(0xA9A182),
+    C_CHEEK = new THREE.Color(0xF0662C), C_PEARL = new THREE.Color(0xEDE2A0), C_UNDER = new THREE.Color(0xC9C193);
+var body = birdTube(
+  [[0, 0.3, -0.36], [0, 0.46, -0.13], [0, 0.68, 0.08], [0, 0.9, 0.16], [0, 1.08, 0.23], [0, 1.11, 0.42]],
+  [[0, 0.1, 0.1], [0.1, 0.25, 0.27], [0.33, 0.33, 0.37], [0.56, 0.25, 0.26], [0.7, 0.195, 0.205], [0.82, 0.225, 0.235], [0.94, 0.18, 0.18], [1, 0.13, 0.12]],
+  {belly:1.06, fur:0.016, raise:0.05, material:SOFT, ends:[0.06, 0.08], paint:function(t, ca, sa, c){
+    c.copy(C_GREY);
+    c.lerp(C_PALE, 0.8 * ss(-0.35, -0.75, sa) * ss(0.08, 0.2, t) * (1 - ss(0.38, 0.5, t)));     // pale lower belly
+    var head = ss(0.66, 0.77, t);
+    c.lerp(C_YEL, head);                                                                         // yellow head
+    c.lerp(C_YEL_P, 0.55 * ss(0.84, 1, t) * ss(-0.2, 0.4, -sa + 0.3));                          // paler face
+    c.lerp(C_NAPE, 0.55 * ss(0.25, 0.85, sa) * ss(0.64, 0.7, t) * (1 - ss(0.76, 0.84, t)));     // greyish nape
+    c.lerp(C_PEARL, 0.85 * ss(0.62, 0.7, bNoise(t * 40, Math.atan2(sa, ca) * 6)) * ss(0.2, 0.6, sa) * ss(0.2, 0.3, t) * (1 - ss(0.58, 0.66, t))); // pearls on the back
+    var ap = Math.atan2(sa, Math.abs(ca));
+    var ck = 1 - ss(0.75, 1, Math.hypot((t - 0.86) / 0.05, (ap + 0.12) / 0.42));               // orange cheek
+    c.lerp(C_CHEEK, ck);
+    return ck * 0.5;
+  }});
+bird.add(body.mesh);
+[-1, 1].forEach(function(s){
+  var e = body.surf(0.9, s * Math.cos(0.32), Math.sin(0.32), -0.03);
+  var eye = M(new THREE.SphereGeometry(0.036, 18, 12), mat(0x1C1714, 0.15)); eye.position.copy(e); bird.add(eye);
+  var hl = M(new THREE.SphereGeometry(0.011, 8, 6), mat(0xFFFFFF, 0.1));
+  hl.position.copy(e).add(new THREE.Vector3(s * 0.022, 0.015, 0.016)); bird.add(hl);
+});
+// small hooked grey beak
+var bBase = body.surf(0.985, 0, -0.1, -0.08), bDir = body.curve.getTangentAt(0.99).clone().add(new THREE.Vector3(0, -0.75, 0)).normalize();
+var beak = new THREE.Group(); beak.position.copy(bBase); aimAlong(beak, bDir);
+var up = M(new THREE.SphereGeometry(0.07, 20, 14), BEAK); up.scale.set(0.95, 1.25, 1); up.position.y = 0.03; beak.add(up);
+var hook = M(new THREE.ConeGeometry(0.032, 0.09, 12), BEAK); hook.position.y = 0.12; hook.rotation.x = 0.35; beak.add(hook);
+bird.add(beak);
+// crest: long curved yellow quills rising from the crown
+var crest = new THREE.Group(); crest.position.copy(body.surf(0.86, 0, 1, -0.06)); bird.add(crest);
+[[-0.05, 0.0, 1.0], [0.05, 0.03, 0.95], [0, 0.06, 1.15], [-0.025, -0.04, 0.85], [0.03, -0.06, 0.8], [0, 0.1, 1.05]].forEach(function(cq){
+  var L = 0.42 * cq[2];
+  var curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(cq[0], 0, cq[1] + 0.04), new THREE.Vector3(cq[0] * 1.3, L * 0.45, cq[1] - 0.02),
+    new THREE.Vector3(cq[0] * 1.6, L * 0.85, cq[1] - 0.12), new THREE.Vector3(cq[0] * 1.8, L, cq[1] - 0.26)]);
+  crest.add(M(new THREE.TubeGeometry(curve, 20, 0.019, 8, false), YEL));
+  var tip = M(new THREE.ConeGeometry(0.019, 0.1, 8), mat(0x8E8A7E, 0.7));
+  var e = curve.getPoint(1), d = curve.getTangent(1);
+  tip.position.copy(e).addScaledVector(d, 0.04); aimAlong(tip, d); crest.add(tip);
+});
+crest.rotation.x = -0.15;
+// wings: smooth folded blades with yellow pearl scallops and a pale lower edge
+var wings = [];
+[-1, 1].forEach(function(s){
+  var w = birdTube([[s * 0.24, 0.8, 0.12], [s * 0.31, 0.6, -0.08], [s * 0.27, 0.41, -0.33], [s * 0.12, 0.26, -0.62]],
+    [[0, 0.045, 0.15], [0.3, 0.065, 0.21], [0.65, 0.05, 0.15], [1, 0.03, 0.05]],
+    {ts:90, rs:48, ends:[0.08, 0.1], material:SOFT, paint:function(t, ca, sa, c){
+      c.copy(C_GREY_D);
+      var outer = ss(-0.1, 0.3, ca * s);
+      var pearl = ss(0.6, 0.68, bNoise(t * 46, sa * 6.5 + s * 7)) * outer * ss(0.05, 0.2, t) * (1 - ss(0.78, 0.92, t));
+      c.lerp(C_PEARL, pearl);
+      c.lerp(C_PALE, 0.85 * ss(-0.45, -0.8, sa) * ss(0.08, 0.2, t) * (1 - ss(0.5, 0.65, t)));
+      return pearl * 0.3;
+    }});
+  bird.add(w.mesh); wings.push(w.mesh);
+});
+// long tail lying back along the box, yellowish underneath
+var tail = new THREE.Group(); tail.position.set(0, 0.3, -0.34); bird.add(tail);
+var tl = birdTube([[0, 0, 0], [0, -0.07, -0.4], [0, -0.13, -0.95]], [[0, 0.11, 0.06], [0.4, 0.11, 0.045], [1, 0.06, 0.025]],
+  {ts:60, rs:32, ends:[0.02, 0.1], material:SOFT, paint:function(t, ca, sa, c){ c.copy(C_GREY_D).lerp(C_UNDER, 0.8 * ss(0.1, -0.5, sa)); return 0; }});
+tail.add(tl.mesh);
+
+bird.position.set(0.05, 1.02, 0.05); bird.rotation.y = -0.85;
+box.add(bird); bird.position.set(0.2, 1.02, 0.05); bird.scale.setScalar(1.2);
+
+// ── Favourites: holy basil, orange wedge, cuttlebone ──
+// holy basil sprig
+var basil = new THREE.Group();
+var stemCurve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0.03, -0.35), new THREE.Vector3(0.08, 0.06, 0), new THREE.Vector3(0, 0.05, 0.35));
+basil.add(M(new THREE.TubeGeometry(stemCurve, 16, 0.018, 6, false), mat(0x6E4A5E, 0.7)));
+for(var b = 0; b < 9; b++){
+  var tb = 0.08 + b * 0.1, pt = stemCurve.getPoint(Math.min(0.98, tb)), side = b % 2 ? 1 : -1;
+  var leaf = egg(0.07, 1, 0.22, 1.6, mat(b % 3 ? 0x4C8F3E : 0x5FA14A, 0.6), 16);
+  leaf.position.set(pt.x + side * 0.07, pt.y + 0.02, pt.z); leaf.rotation.set(0, side * 0.9, side * 0.2); basil.add(leaf);
+}
+basil.position.set(1.45, 0, 0.55); basil.rotation.y = 0.6; world.add(basil);
+// orange wedge
+var wedge = new THREE.Group();
+var peel = M(new THREE.CylinderGeometry(0.24, 0.24, 0.16, 24, 1, false, 0, Math.PI * 0.6), mat(0xF39A2B, 0.55));
+var flesh = M(new THREE.CylinderGeometry(0.215, 0.215, 0.165, 24, 1, false, 0, Math.PI * 0.6), mat(0xFFC15A, 0.45));
+wedge.add(peel, flesh); wedge.rotation.set(Math.PI / 2, 0, 0.3); wedge.position.set(1.65, 0.12, -0.25); world.add(wedge);
+// cuttlebone
+var cuttle = egg(0.32, 1, 0.12, 0.45, mat(0xF7F2E6, 0.85), 32);
+cuttle.position.set(-1.6, 0.04, 0.45); cuttle.rotation.y = 0.5; world.add(cuttle);
+var cuttleEdge = egg(0.33, 1, 0.08, 0.47, mat(0xE8DFC9, 0.85), 32);
+cuttleEdge.position.set(-1.6, 0.025, 0.45); cuttleEdge.rotation.y = 0.5; world.add(cuttleEdge);
+
+world.rotation.y = cfg.rot || 0;
+world.scale.setScalar(0.95);
+
+function anim(t){
+  if(reduce) return;
+    bird.rotation.y = -0.85 + Math.sin(t * 0.6) * 0.15;               // looks around
+    bird.rotation.z = Math.sin(t * 1.1) * 0.04;
+    crest.rotation.x = -0.15 - Math.max(0, Math.sin(t * 0.7)) * 0.25; // crest goes up and down
+    tail.rotation.y = Math.sin(t * 1.4) * 0.05;
+    bird.position.y = 1.02 + Math.abs(Math.sin(t * 1.8)) * 0.012;
+}
+if(emb) return {group:world, update:anim};
+
+// ── Sizing, drag, loop ──
+function resize(){
+  var w = cv.clientWidth, h = cv.clientHeight; if(!w || !h) return;
+  renderer.setSize(w, h, false); camera.aspect = w / h;
+  camera.position.z = w / h < 0.9 ? 10.6 : 9.0; camera.updateProjectionMatrix();
+}
+resize(); window.addEventListener('resize', resize);
+var still = /[?&]still/.test(location.search);
+var targetRot = cfg.rot || 0, dragging = false, lastX = 0, idle = 0;
+cv.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; cv.setPointerCapture(e.pointerId); cv.classList.add('grabbing'); });
+cv.addEventListener('pointermove', function(e){ if(!dragging) return; targetRot += (e.clientX - lastX) * 0.012; lastX = e.clientX; idle = 0; });
+function endDrag(){ dragging = false; cv.classList.remove('grabbing'); }
+cv.addEventListener('pointerup', endDrag); cv.addEventListener('pointercancel', endDrag);
+var visible = true;
+if('IntersectionObserver' in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }, {threshold:0}).observe(cv);
+var t = 0;
+function loop(){
+  requestAnimationFrame(loop);
+  if(!visible) return;
+  t += 0.016; idle += 0.016;
+  if(!dragging && idle > 2.5 && !reduce && !still) targetRot += 0.0035;
+  world.rotation.y += (targetRot - world.rotation.y) * 0.12;
+  anim(t);
+  renderer.render(scene, camera);
+}
+loop();
+}
+
+var GIRAFFE_CFG = {canvas:'giraffeCanvas', rot:-0.05};
+makeCockatiel(GIRAFFE_CFG);
+
+// ── Hero world: house, waterfall, flowers, all the pets and me ──────
+(function populateHero(){
+'use strict';
+var H = window.__hero; if(!H || !window.THREE) return;
+var scene = H.scene, tH = H.tH;
+var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+function clay(col, rough){ return new THREE.MeshStandardMaterial({color:col, roughness:rough == null ? 0.75 : rough, metalness:0}); }
+function mesh(geo, m){ var o = new THREE.Mesh(geo, m); o.castShadow = true; o.receiveShadow = true; return o; }
+function groundMin(x, z, r){ var m = 1e9; for(var a = 0; a < 8; a++){ m = Math.min(m, tH(x + Math.cos(a) * r, z + Math.sin(a) * r)); } return Math.min(m, tH(x, z)); }
+function groundMax(x, z, r){ var m = -1e9; for(var a = 0; a < 8; a++){ m = Math.max(m, tH(x + Math.cos(a) * r, z + Math.sin(a) * r)); } return Math.max(m, tH(x, z)); }
+
+// ── Cosy house ──
+function makeHouse(){
+  var g = new THREE.Group();
+  var WALL = clay(0xF6E9D2, 0.85), ROOF = clay(0xD8704A, 0.7), TRIM = clay(0xFFFFFF, 0.7),
+      WOOD = clay(0x8A5A3B, 0.8), GLASS = clay(0xA8DAF4, 0.25), STONE = clay(0xB7B0A6, 0.95);
+  var found = mesh(new THREE.BoxGeometry(3.2, 0.9, 2.6), STONE); found.position.y = -0.4; g.add(found);
+  var sh = new THREE.Shape();
+  sh.moveTo(-1.5, 0); sh.lineTo(1.5, 0); sh.lineTo(1.5, 1.8); sh.lineTo(0, 2.9); sh.lineTo(-1.5, 1.8); sh.closePath();
+  var body = mesh(new THREE.ExtrudeGeometry(sh, {depth:2.4, bevelEnabled:false}), WALL); body.position.z = -1.2; g.add(body);
+  [-1, 1].forEach(function(s){
+    var r = mesh(new THREE.BoxGeometry(2.2, 0.16, 2.95), ROOF); r.rotation.z = s * -0.633; r.position.set(s * 0.8, 2.42, 0); g.add(r);
+  });
+  var ridge = mesh(new THREE.CylinderGeometry(0.1, 0.1, 2.97, 12), ROOF); ridge.rotation.x = Math.PI / 2; ridge.position.set(0, 2.98, 0); g.add(ridge);
+  var chim = mesh(new THREE.BoxGeometry(0.42, 1.0, 0.42), clay(0xB0563A, 0.85)); chim.position.set(-0.85, 2.75, -0.55); g.add(chim);
+  var chimTop = mesh(new THREE.BoxGeometry(0.52, 0.1, 0.52), clay(0x8E4630, 0.85)); chimTop.position.set(-0.85, 3.27, -0.55); g.add(chimTop);
+  // door + step
+  var door = mesh(new THREE.BoxGeometry(0.72, 1.25, 0.08), WOOD); door.position.set(0.55, 0.63, 1.23); g.add(door);
+  var knob = mesh(new THREE.SphereGeometry(0.05, 12, 8), clay(0xF2C14E, 0.3)); knob.position.set(0.8, 0.62, 1.29); g.add(knob);
+  var step = mesh(new THREE.BoxGeometry(1.0, 0.14, 0.5), STONE); step.position.set(0.55, 0.05, 1.45); g.add(step);
+  // windows with frames and flower box
+  function windowAt(x, y, z, ry){
+    var w = new THREE.Group(); w.position.set(x, y, z); w.rotation.y = ry || 0;
+    w.add(mesh(new THREE.BoxGeometry(0.72, 0.66, 0.05), TRIM));
+    var gl = mesh(new THREE.BoxGeometry(0.58, 0.52, 0.06), GLASS); gl.position.z = 0.01; w.add(gl);
+    var v = mesh(new THREE.BoxGeometry(0.05, 0.52, 0.07), TRIM); v.position.z = 0.02; w.add(v);
+    var hz = mesh(new THREE.BoxGeometry(0.58, 0.05, 0.07), TRIM); hz.position.z = 0.02; w.add(hz);
+    var box = mesh(new THREE.BoxGeometry(0.76, 0.14, 0.2), WOOD); box.position.set(0, -0.42, 0.1); w.add(box);
+    [0xF08CB8, 0xF5D547, 0xFFFFFF, 0xE85D75, 0xF5D547].forEach(function(c, i){
+      var f = mesh(new THREE.SphereGeometry(0.07, 10, 8), clay(c, 0.6)); f.position.set(-0.28 + i * 0.14, -0.31, 0.12); w.add(f);
+    });
+    g.add(w);
+  }
+  windowAt(-0.65, 1.1, 1.22);
+  windowAt(1.52, 1.1, 0.1, Math.PI / 2);
+  windowAt(-1.52, 1.1, 0.1, -Math.PI / 2);
+  var attic = mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.05, 24), GLASS); attic.rotation.x = Math.PI / 2; attic.position.set(0, 2.15, 1.22); g.add(attic);
+  var atticR = mesh(new THREE.TorusGeometry(0.23, 0.04, 8, 24), TRIM); atticR.position.set(0, 2.15, 1.24); g.add(atticR);
+  // little picket fence
+  for(var f = 0; f < 9; f++){
+    var post = mesh(new THREE.BoxGeometry(0.1, 0.55, 0.06), TRIM); post.position.set(-1.9 + f * 0.24, 0.2, 2.2); g.add(post);
+  }
+  var rail = mesh(new THREE.BoxGeometry(2.0, 0.06, 0.05), TRIM); rail.position.set(-0.94, 0.3, 2.22); g.add(rail);
+  // stepping-stone path
+  for(var k = 0; k < 4; k++){
+    var st = mesh(new THREE.CylinderGeometry(0.22, 0.24, 0.06, 10), STONE); st.position.set(0.55 + k * 0.08, -0.0, 2.0 + k * 0.55); g.add(st);
+  }
+  return g;
+}
+var house = makeHouse();
+var hx = -6.2, hz = -10.5;
+house.position.set(hx, groundMin(hx, hz, 1.8), hz); house.rotation.y = 0.32; house.scale.setScalar(1.45);
+scene.add(house);
+
+// ── Waterfall into a pond ──
+function waterTexture(){
+  var c = document.createElement('canvas'); c.width = 64; c.height = 256;
+  var x = c.getContext('2d');
+  var gr = x.createLinearGradient(0, 0, 64, 0); gr.addColorStop(0, '#6EC3EE'); gr.addColorStop(0.5, '#A9E0FA'); gr.addColorStop(1, '#6EC3EE');
+  x.fillStyle = gr; x.fillRect(0, 0, 64, 256);
+  for(var i = 0; i < 60; i++){
+    x.strokeStyle = 'rgba(255,255,255,' + (0.25 + Math.random() * 0.5) + ')'; x.lineWidth = 1 + Math.random() * 2.5;
+    var px = Math.random() * 64, py = Math.random() * 256, len = 20 + Math.random() * 60;
+    x.beginPath(); x.moveTo(px, py); x.lineTo(px + (Math.random() - 0.5) * 3, py + len); x.stroke();
+  }
+  var t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1, 1.5);
+  return t;
+}
+var wf = new THREE.Group();
+var ROCKS = [0x8E99A3, 0x7D8892, 0x9AA4AC, 0x86909A];
+function rock(x, y, z, r, i){
+  var m = mesh(new THREE.DodecahedronGeometry(r, 1), new THREE.MeshStandardMaterial({color:ROCKS[i % 4], roughness:0.92, flatShading:true}));
+  m.position.set(x, y, z); m.rotation.set(i * 0.7, i * 1.3, i * 0.4); m.scale.set(1, 0.85 + (i % 3) * 0.1, 0.9); wf.add(m); return m;
+}
+// cliff: two rocky towers with a notch in the middle for the water
+var ri = 0;
+[-1, 1].forEach(function(s){
+  for(var row = 0; row < 5; row++){
+    rock(s * (1.25 + (row % 2) * 0.25), 0.5 + row * 0.95, -0.4 - (row % 2) * 0.2, 0.85 - row * 0.05, ri++);
+    rock(s * (2.2 - row * 0.12), 0.4 + row * 0.85, -0.7, 0.75 - row * 0.06, ri++);
+  }
+});
+for(var bk = 0; bk < 5; bk++) rock(-1.2 + bk * 0.6, 0.6 + bk * 0.9, -1.3, 0.9, ri++);
+rock(0, 4.6, -0.9, 0.9, ri++);
+// mossy top + a couple of shrubs
+[[-1.4, 5.0, -0.5, 0.7], [1.5, 4.8, -0.6, 0.75], [0.1, 5.25, -1.1, 0.6]].forEach(function(m){
+  var mo = mesh(new THREE.SphereGeometry(m[3], 16, 10), clay(0x4E9A4A, 0.8)); mo.scale.set(1.2, 0.5, 1); mo.position.set(m[0], m[1], m[2]); wf.add(mo);
+});
+var wTex = waterTexture();
+var fall = mesh(new THREE.PlaneGeometry(1.3, 4.6, 1, 8), new THREE.MeshStandardMaterial({map:wTex, transparent:true, opacity:0.93, roughness:0.15}));
+fall.castShadow = false; fall.position.set(0, 2.45, 0.05); wf.add(fall);
+var lip = mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.12, 24), clay(0x8FD3F4, 0.15)); lip.scale.z = 0.6; lip.position.set(0, 4.7, -0.25); wf.add(lip);
+// pond
+var pond = mesh(new THREE.CylinderGeometry(2.4, 2.4, 0.12, 48), new THREE.MeshStandardMaterial({color:0x5DB8E8, roughness:0.08, transparent:true, opacity:0.88}));
+pond.scale.z = 0.72; pond.position.set(0, 0.06, 1.6); pond.castShadow = false; wf.add(pond);
+for(var pr = 0; pr < 16; pr++){
+  var pa = pr / 16 * Math.PI * 2;
+  rock(Math.cos(pa) * 2.45, 0.08, 1.6 + Math.sin(pa) * 1.8, 0.28 + (pr % 3) * 0.06, ri++);
+}
+// lily pads
+[[0.9, 2.2], [-1.0, 2.0], [0.2, 2.7]].forEach(function(l, i){
+  var pad = mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.03, 18, 1, false, 0.4, Math.PI * 1.8), clay(0x5FA64A, 0.6)); pad.position.set(l[0], 0.14, l[1]); wf.add(pad);
+  if(i === 0){ var fl = mesh(new THREE.SphereGeometry(0.08, 10, 8), clay(0xF7A8C8, 0.5)); fl.position.set(l[0], 0.2, l[1]); wf.add(fl); }
+});
+// foam + ripples at the base
+var foam = [], ripples = [];
+for(var fo = 0; fo < 7; fo++){
+  var fm = mesh(new THREE.SphereGeometry(0.16 + (fo % 3) * 0.05, 12, 8), clay(0xFFFFFF, 0.5)); fm.castShadow = false;
+  fm.position.set(-0.5 + fo * 0.16, 0.12, 0.35 + (fo % 2) * 0.15); wf.add(fm); foam.push(fm);
+}
+for(var rp = 0; rp < 3; rp++){
+  var ring = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.025, 6, 40), new THREE.MeshBasicMaterial({color:0xFFFFFF, transparent:true, opacity:0.6}));
+  ring.rotation.x = Math.PI / 2; ring.position.set(0, 0.13, 0.75); wf.add(ring); ripples.push(ring);
+}
+var wx = 9.0, wz = -14.5;
+wf.position.set(wx, groundMax(wx, wz + 1.6, 2.4) - 0.02, wz); wf.rotation.y = -0.35; wf.scale.setScalar(1.0);
+scene.add(wf);
+H.add(function(t){
+  wTex.offset.y = (t * 0.9) % 1;
+  if(reduce) return;
+  foam.forEach(function(f, i){ var k = 1 + Math.sin(t * 6 + i) * 0.18; f.scale.set(k, k * 0.8, k); });
+  ripples.forEach(function(r, i){ var ph = (t * 0.5 + i / 3) % 1; r.scale.setScalar(0.6 + ph * 2.4); r.material.opacity = 0.6 * (1 - ph); });
+});
+
+// ── Flowers and bushes scattered on the meadow ──
+var FLOWER_C = [0xF08CB8, 0xF5D547, 0xFFFFFF, 0xE85D75, 0xB79CF5];
+function flowerPatch(x, z, n, seed){
+  var g = new THREE.Group();
+  for(var i = 0; i < n; i++){
+    var a = (i * 2.399) + seed, r = 0.25 + (i % 4) * 0.22;
+    var fx = Math.cos(a) * r, fz = Math.sin(a) * r;
+    var stem = mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.32, 5), clay(0x3E7E36, 0.8)); stem.position.set(fx, 0.16, fz); g.add(stem);
+    var head = mesh(new THREE.SphereGeometry(0.075, 10, 8), clay(FLOWER_C[(i + seed) % 5], 0.55)); head.position.set(fx, 0.34, fz); g.add(head);
+  }
+  g.position.set(x, tH(x, z), z); scene.add(g);
+}
+[[-3.5, -2.5], [1.0, 1.5], [-0.5, -8.5], [5.5, -8.0], [11, -9], [-9, -4], [2.5, -12.5], [8.5, 1.2], [-4.5, -13.5], [12.5, -1.5]]
+  .forEach(function(p, i){ flowerPatch(p[0], p[1], 9, i); });
+function bush(x, z, s){
+  var g = new THREE.Group();
+  [[0, 0.35, 0, 0.45], [0.38, 0.28, 0.1, 0.34], [-0.36, 0.26, 0.05, 0.32], [0.05, 0.55, -0.1, 0.32]].forEach(function(b){
+    var m = mesh(new THREE.SphereGeometry(b[3], 14, 10), clay(0x4C9447, 0.8)); m.position.set(b[0], b[1], b[2]); g.add(m);
+  });
+  g.scale.setScalar(s); g.position.set(x, tH(x, z), z); scene.add(g);
+}
+bush(-3.3, -9.2, 1.1); bush(-8.6, -8.4, 1.2); bush(6.4, -12.0, 1.0); bush(11.2, -11.6, 1.2); bush(-1.6, -12.8, 0.9);
+
+// ── The crew (same models as their cards) ──
+function addPet(maker, cfg, x, z, sc, ry){
+  var hold = new THREE.Group();
+  hold.position.set(x, tH(x, z), z); hold.rotation.y = ry || 0; hold.scale.setScalar(sc);
+  scene.add(hold);
+  var api = maker(Object.assign({}, cfg, {embed:hold}));
+  if(api && api.update) H.add(api.update);
+  return hold;
+}
+if(typeof TAE_CFG !== 'undefined')     addPet(makeBangkaew, TAE_CFG, 4.6, 1.2, 0.78, -0.3);
+if(typeof HENG_CFG !== 'undefined')    addPet(makeBangkaew, HENG_CFG, 8.4, -0.6, 0.78, -0.55);
+if(typeof THONG_CFG !== 'undefined')   addPet(makeMyna, THONG_CFG, -1.6, -5.6, 1.15, 0.3);
+if(typeof GIRAFFE_CFG !== 'undefined') addPet(makeCockatiel, GIRAFFE_CFG, -4.6, -3.0, 1.1, 0.55);
+
+// ── Me: blue-beanie avatar running around the meadow ──
+function makeHead(skin){
+  var head = new THREE.Group(), ink = clay(0x2B2A33, 0.6);
+  head.add(mesh(new THREE.SphereGeometry(0.66, 40, 30), skin));
+  var hb = mesh(new THREE.SphereGeometry(0.7, 32, 24), ink); hb.scale.set(1, 1.05, 0.95); hb.position.set(0, 0.03, -0.12); head.add(hb);
+  [-1, 1].forEach(function(sd){
+    var side = mesh(new THREE.SphereGeometry(0.3, 24, 18), ink); side.scale.set(0.55, 1.6, 0.8); side.position.set(sd * 0.57, -0.3, 0); head.add(side);
+  });
+  var bangs = mesh(new THREE.SphereGeometry(0.6, 32, 20), ink); bangs.scale.set(1, 0.36, 0.55); bangs.position.set(0, 0.22, 0.36); head.add(bangs);
+  var beanie = mesh(new THREE.SphereGeometry(0.72, 36, 20, 0, Math.PI * 2, 0, Math.PI / 2), clay(0x4C9AE0, 0.75));
+  beanie.scale.set(1, 0.85, 1); beanie.position.y = 0.2; head.add(beanie);
+  var cuff = mesh(new THREE.TorusGeometry(0.71, 0.1, 16, 48), clay(0x73B2EA, 0.75)); cuff.rotation.x = Math.PI / 2; cuff.position.y = 0.2; head.add(cuff);
+  [-1, 1].forEach(function(sd){
+    var eg = new THREE.Group(); eg.position.set(sd * 0.23, -0.1, 0.58);
+    var white = mesh(new THREE.SphereGeometry(0.1, 20, 16), clay(0xFFFFFF, 0.4)); white.scale.set(1, 1.25, 0.45); eg.add(white);
+    var pupil = mesh(new THREE.SphereGeometry(0.062, 18, 14), clay(0x2B2535, 0.3)); pupil.scale.set(1, 1.25, 0.4); pupil.position.z = 0.03; eg.add(pupil);
+    var shine = mesh(new THREE.SphereGeometry(0.02, 10, 8), clay(0xFFFFFF, 0.2)); shine.position.set(0.02, 0.04, 0.055); eg.add(shine);
+    head.add(eg);
+    var cheek = mesh(new THREE.SphereGeometry(0.09, 16, 12), clay(0xFFB3C4, 0.7)); cheek.scale.set(1, 0.6, 0.2); cheek.position.set(sd * 0.4, -0.24, 0.46); cheek.rotation.y = sd * 0.7; head.add(cheek);
+  });
+  var nose = mesh(new THREE.SphereGeometry(0.035, 12, 10), clay(0xF2BFA6, 0.7)); nose.position.set(0, -0.2, 0.655); head.add(nose);
+  var smile = mesh(new THREE.TorusGeometry(0.1, 0.022, 8, 20, Math.PI), clay(0xC4546E, 0.5)); smile.rotation.z = Math.PI; smile.position.set(0, -0.3, 0.595); head.add(smile);
+  return head;
+}
+function makeMe(){
+  var g = new THREE.Group(), body = new THREE.Group(); g.add(body);
+  var skin = clay(0xF7CDB3, 0.65), hoodie = clay(0x7DB3E4, 0.7), shorts = clay(0x353A66, 0.65), shoe = clay(0x2A2C3C, 0.6), sole = clay(0xF0F0F4, 0.7);
+  var torso = mesh(new THREE.SphereGeometry(1, 32, 24), hoodie); torso.scale.set(0.42, 0.5, 0.32); torso.position.y = 1.18; body.add(torso);
+  var hips = mesh(new THREE.SphereGeometry(1, 28, 20), shorts); hips.scale.set(0.38, 0.22, 0.3); hips.position.y = 0.78; body.add(hips);
+  var legs = [], arms = [];
+  [-1, 1].forEach(function(s){
+    var leg = new THREE.Group(); leg.position.set(s * 0.17, 0.78, 0);
+    var th = mesh(new THREE.CylinderGeometry(0.12, 0.11, 0.34, 14), shorts); th.position.y = -0.15; leg.add(th);
+    var sh = mesh(new THREE.CylinderGeometry(0.085, 0.08, 0.4, 14), skin); sh.position.y = -0.48; leg.add(sh);
+    var ft = mesh(new THREE.SphereGeometry(1, 20, 14), shoe); ft.scale.set(0.12, 0.08, 0.2); ft.position.set(0, -0.72, 0.06); leg.add(ft);
+    var so = mesh(new THREE.SphereGeometry(1, 20, 10), sole); so.scale.set(0.125, 0.035, 0.21); so.position.set(0, -0.78, 0.06); leg.add(so);
+    body.add(leg); legs.push(leg);
+    var arm = new THREE.Group(); arm.position.set(s * 0.42, 1.45, 0);
+    var up = mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.5, 14), hoodie); up.position.y = -0.24; arm.add(up);
+    var hand = mesh(new THREE.SphereGeometry(0.09, 14, 10), skin); hand.position.y = -0.52; arm.add(hand);
+    arm.rotation.z = s * 0.18; body.add(arm); arms.push(arm);
+  });
+  var head = makeHead(skin); head.scale.setScalar(0.5); head.position.y = 1.98; body.add(head);
+  return {g:g, body:body, legs:legs, arms:arms, head:head};
+}
+var me = makeMe();
+me.g.scale.setScalar(1.45);
+scene.add(me.g);
+// a ball bouncing along beside me
+var ball = new THREE.Group();
+ball.add(mesh(new THREE.SphereGeometry(0.2, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), clay(0xE5484D, 0.45)));
+ball.add(mesh(new THREE.SphereGeometry(0.2, 24, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), clay(0xF4C542, 0.45)));
+scene.add(ball);
+var PC = {x:1.4, z:-1.6, rx:2.4, rz:1.1};
+H.add(function(t){
+  var u = reduce ? 0.6 : t * 0.32;
+  var x = PC.x + Math.cos(u) * PC.rx, z = PC.z + Math.sin(u) * PC.rz;
+  var dx = -Math.sin(u) * PC.rx, dz = Math.cos(u) * PC.rz;
+  var step = reduce ? 0 : t * 9;
+  me.g.position.set(x, tH(x, z) + Math.abs(Math.sin(step)) * 0.12, z);
+  me.g.rotation.y = Math.atan2(dx, dz);
+  me.legs[0].rotation.x = Math.sin(step) * 0.75; me.legs[1].rotation.x = -Math.sin(step) * 0.75;
+  me.arms[0].rotation.x = -Math.sin(step) * 0.85; me.arms[1].rotation.x = Math.sin(step) * 0.85;
+  me.body.rotation.x = 0.12;
+  me.head.rotation.z = Math.sin(step * 0.5) * 0.06;
+  var ub = u + 0.32, bx = PC.x + Math.cos(ub) * (PC.rx + 0.5), bz = PC.z + Math.sin(ub) * (PC.rz + 0.4);
+  ball.position.set(bx, tH(bx, bz) + 0.2 + Math.abs(Math.sin(step * 0.55)) * 0.7, bz);
+  ball.rotation.x = step * 0.3;
+});
+})();
+
+// Mobile menu
+(function(){
+  var nav = document.getElementById('nav'), menuBtn = document.getElementById('menuBtn');
+  if(nav && menuBtn){
+    menuBtn.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+      menuBtn.textContent = open ? 'Close' : 'Menu';
+    });
+    nav.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click', function(){ nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false'); menuBtn.textContent='Menu'; });
+    });
+  }
+})();
+</script>
+</body>
+</html>
